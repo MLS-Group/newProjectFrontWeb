@@ -1,0 +1,13 @@
+
+body, html {
+    background-color: #fff;
+    height: 100%;
+}
+.form-group {
+    margin-bottom: 5px;
+}
+.page-header {
+    padding-bottom: 11px;
+    margin: -22px 0px 0px;
+    border-bottom: 1px solid #eee;
+}
