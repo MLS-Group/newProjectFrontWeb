@@ -131,4 +131,5 @@ const AJAX_URL = {
     IndexSpare: requestJson ? '../../jsonDatas/index-spare.json' : '',
     vinQuery: requestJson ? '../../jsonDatas/vin-query.json' : '',
     vinList: requestJson ? '../../jsonDatas/vin-list.json' : '',
+    signAnalysis: requestJson ? '../../jsonDatas/signAnalysis.json' : ''
 }

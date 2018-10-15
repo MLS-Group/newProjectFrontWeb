@@ -1,12 +1,6 @@
-/**
- * SBOM变更日志模块
- *  宣文彬
- *  2018-9-27
- */
-//获得表格数据
-$(function () {
-    $('#show-table-enrolmentinfo').bootstrapTable({
-        url: AJAX_URL.SBOMChangeLogData,
+$(function() {
+    $("#signanalysis-table").bootstrapTable({
+        url: AJAX_URL.signAnalysis,
         method: requestJson ? 'get' : 'post',                      //请求方式（*）
         dataType: "json",
         //toolbar: '#toolbar',              //工具按钮用哪个容器
@@ -26,7 +20,7 @@ $(function () {
         minimumCountColumns: 2,             //最少允许的列数
         clickToSelect: true,                //是否启用点击选中行
         //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-        uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+        uniqueId: "adminssionKey",                     //每一行的唯一标识，一般为主键列
         showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
@@ -45,31 +39,25 @@ $(function () {
             checkbox: true,
             visible: true                  //是否显示复选框
         }, {
+            field: 'adminssionKey',
             align: 'center',
-            field: 'number',
-            title: '序号',
-            formatter: function (value, row, index) {
-                //通过formatter可以自定义列显示的内容
-                //value：当前field的值，即id
-                //row：当前行的数据
-                return index + 1;
-            }
+            title: '序号'
         }, {
+            field: 'shoolName',
             align: 'center',
-            field: 'schoolname',
-            title: '学校名称'
+            title: '学校'
         }, {
+            field: 'major',
             align: 'center',
-            field: 'majorname',
-            title: '专业名称'
+            title: '专业'
         }, {
+            field: 'adminssionPlanNumber',
             align: 'center',
-            field: 'adminssionsnumber',
-            title: '招生人数'
+            title: '计划招生人数'
         }, {
+            field: 'adminssionRealNumber',
             align: 'center',
-            field: 'publishtime',
-            title: '发布时间'
+            title: '实际招生人数'
         }],
         onLoadSuccess: function (e) {
             console.log(e)
@@ -84,9 +72,5 @@ $(function () {
             return data.rows;
         }
     });
-})
 
-
-
-
-
+});

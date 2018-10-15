@@ -20,8 +20,33 @@
         <h3>招生信息查询</h3>
     </div>
     <!--***********你的内容和注释写在这*******************-->
-
-
+    <div class="search-content" >
+        <div class="search-head">
+            <form>
+                <div  class="enrolmentinfo-search-from form-group">
+                    <label>学校：</label>
+                    <input type="text" id="select-input-school" class="input-select" placeholder="请输入学校名称" maxlength="50">
+                </div>
+                <div  class="enrolmentinfo-search-from form-group">
+                    <label>专业： </label>
+                    <input type="text" id="select-input-major" class="input-select" placeholder="请输入专业" maxlength="50">
+                </div>
+                <div class="enrolmentinfo-search-from form-group">
+                    <label>省份：</label>
+                    <input type="text" class="sbom-from-controller"  id="select-input-province" class="input-select"  placeholder="请选择省份"  maxlength="50" >
+                </div>
+                <div class="search-submit">
+                    <button class="btn btn-primary" id="search-button">查询</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="enrolmentinfo-list" >
+        <div class="tab-pane" id="login-log">
+            <table id="show-table-enrolmentinfo"></table>
+        </div>
+    </div>
 </div>
 
 
