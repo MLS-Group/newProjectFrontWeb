@@ -114,14 +114,11 @@ const AJAX_URL = {
     //考生管理(添加) 刘志杰 2018-10-12
     exanineeInsert: requestJson ? '' : requestUrl + "api/generate/examineeinformation/informationEntry",
     /**
-     *@desc 日志管理，答疑管理数据
-     *@date 2018/09/27 09:23:06
+     *@desc 招生信息查询数据
+     *@date 2018/10/15
      *@author 宣文斌
      */
-    questionManage: requestJson ? '../../jsonDatas/questionManageData.json' : '',
-    SBOMChangeLogData: requestJson ? '../../jsonDatas/SBOMChangeLogData.json' : '',
-    operationLogData: requestJson ? '../../jsonDatas/operationLogData.json' : '',
-    announceManagementData: requestJson ? '../../jsonDatas/announceManagementData.json' : '',
+    enrolmentinfoSelectData: requestJson ? '../../jsonDatas/enrolmentinfoSelect.json' : '',
     /**
      *@desc
      *@date 2018/09/27 10:05:20

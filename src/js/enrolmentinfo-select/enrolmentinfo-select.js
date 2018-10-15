@@ -1,12 +1,12 @@
 /**
- * SBOM变更日志模块
+ * 招生信息模块
  *  宣文彬
  *  2018-9-27
  */
 //获得表格数据
 $(function () {
     $('#show-table-enrolmentinfo').bootstrapTable({
-        url: AJAX_URL.SBOMChangeLogData,
+        url: AJAX_URL.enrolmentinfoSelectData,
         method: requestJson ? 'get' : 'post',                      //请求方式（*）
         dataType: "json",
         //toolbar: '#toolbar',              //工具按钮用哪个容器
