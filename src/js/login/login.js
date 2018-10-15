@@ -136,4 +136,30 @@ $(function () {
         return code;
     }
 
+    /**
+     * 登录按钮（未完成）
+     * 刘笑天 2018-10-15
+     */
+    $("#login_button_examineelogin").click(function () {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.ajax({
+            url: AJAX_URL.examineeLogin,
+            type: requestJson ? 'get' : 'post',
+            data: JSON.stringify({
+                "userAccount": username,
+                "userPassword": password
+            }),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success:function (data) {
+                window.location.href = '../default/default.html';
+                alert(message);
+            },
+            error:function (data) {
+                alert(message);
+            }
+        });
+    });
+
 })(jQuery);
