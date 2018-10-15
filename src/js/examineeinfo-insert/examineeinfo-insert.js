@@ -114,13 +114,17 @@ function tableInit(tableUrl) {
         //客户端分页，需要指定到rows
         responseHandler: function (result) {
             // console.log(result)
-            if (requestJson) {
-                return result.rows;
+            if (result.ok) {
+                if (requestJson) {
+                    return result.rows;
+                } else {
+                    return {
+                        "rows": result.data.list,
+                        "total": result.data.count
+                    };
+                }
             } else {
-                return {
-                    "rows": result.data.list,
-                    "total": result.data.count
-                };
+                poptip.alert(POP_TIP.selectFail)
             }
 
         }
@@ -143,7 +147,7 @@ function openModal() {
     $("#my-modal input").val("");
     //打开模态框
     $("#my-modal").modal("show");
-
+    console.log($("input[type='radio'][name='basicinfo-radio-sex']:checked"))
 }
 
 /**
@@ -171,20 +175,19 @@ function saveInfo() {
             "email": $("#basicinfo-input-email").val(),
             "phonenumber": $("#basicinfo-input-phonenumber").val(),
             "graduateschool": $("#basicinfo-input-graduateschool").val(),
-
         }
     }
     console.log(examineeObj)
-    $.ajax({
-        url: AJAX_URL.exanineeInsert,
-        type: requestJson ? 'get' : 'post',
-        data: JSON.stringify(examineeObj),
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        success: function (data) {
-            poptip.alert(POP_TIP.examineeSuccess);
-            $("#my-modal").modal("hide");
-            $('#my-table').bootstrapTable('refresh');
-        }
-    })
+    // $.ajax({
+    //     url: AJAX_URL.exanineeInsert,
+    //     type: requestJson ? 'get' : 'post',
+    //     data: JSON.stringify(examineeObj),
+    //     dataType: "json",
+    //     contentType: "application/json;charset=utf-8",
+    //     success: function (data) {
+    //         poptip.alert(POP_TIP.examineeSuccess);
+    //         $("#my-modal").modal("hide");
+    //         $('#my-table').bootstrapTable('refresh');
+    //     }
+    // })
 }
