@@ -37,6 +37,8 @@ const POP_TIP = {
     choiceOne: '请选择一条选项',
     choiceOnlyOne: '只能选择一条选项', //by 刘志杰
     examineeSuccess:"录取成功", //by 刘志杰
+    selectFail:"查询失败", //by 刘志杰
+
 };
 
 /**
@@ -108,7 +110,7 @@ const AJAX_URL = {
     //用户管理 刘志杰 2018-09-28
     userManage: requestJson ? '../../jsonDatas/userData.json' : '',
     //考生管理(分页查询) 刘志杰 2018-10-12
-    exanineeSelect: requestJson ? '' : requestUrl + "api/generate/examineeinformation/page",
+    exanineeSelect: requestJson ? '' : requestUrl + "api/generate/examineeinformation/queryByPage",
     //考生管理(添加) 刘志杰 2018-10-12
     exanineeInsert: requestJson ? '' : requestUrl + "api/generate/examineeinformation/informationEntry",
     /**

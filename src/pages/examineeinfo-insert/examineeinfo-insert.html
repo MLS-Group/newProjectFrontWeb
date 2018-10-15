@@ -23,7 +23,7 @@
     <!--考生信息录入 刘志杰 2018-10-12-->
     <div class="content-section">
         <div class="btn-section">
-            <button class="btn btn-primary insert-button "  onclick="openModal()">录入</button>
+            <button class="btn btn-primary insert-button " onclick="openModal()">录入</button>
         </div>
         <div class="table-section">
             <table id="my-table"></table>
@@ -45,19 +45,21 @@
                     <div class="form-horizontal" id="open-dialog">
                         <div>
                             <div class="h2">登录信息</div>
-                            <!--<div class="form-group">-->
-                                <!--&lt;!&ndash;requred 必填样式（红色星号）&ndash;&gt;-->
-                                <!--<label for="logininfo-input-account" class="col-sm-3 control-label required">登录账户： </label>-->
-                                <!--<div class="col-sm-9">-->
-                                    <!--<input type="text" class="form-control "-->
-                                           <!--id="logininfo-input-account" disabled>-->
-                                    <!--&lt;!&ndash;并且必须在表单项紧挨着的下方添加如下标签&ndash;&gt;-->
-                                    <!--<span class="alert-warn"></span>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                           <!-- <div class="form-group">
+                                &lt;!&ndash;requred 必填样式（红色星号）&ndash;&gt;
+                                <label for="logininfo-input-account"
+                                       class="col-sm-3 control-label required">登录账户： </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control "
+                                           id="logininfo-input-account" disabled>
+                                    &lt;!&ndash;并且必须在表单项紧挨着的下方添加如下标签&ndash;&gt;
+                                    <span class="alert-warn"></span>
+                                </div>
+                            </div>-->
                             <div class="form-group">
                                 <!--requred 必填样式（红色星号）-->
-                                <label for="logininfo-input-password" class="col-sm-3 control-label required">密码： </label>
+                                <label for="logininfo-input-password"
+                                       class="col-sm-3 control-label required">密码： </label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control need-check not-null"
                                            regex="" maxlength="10" id="logininfo-input-password"
@@ -70,18 +72,21 @@
                         <hr>
                         <div>
                             <div class="h2">基本信息</div>
-                            <!--<div class="form-group">-->
-                                <!--&lt;!&ndash;requred 必填样式（红色星号）&ndash;&gt;-->
-                                <!--<label for="basicinfo-input-quasiexaminationnumber" class="col-sm-3 control-label required">准考证号 </label>-->
-                                <!--<div class="col-sm-9">-->
-                                    <!--<input type="text" class="form-control " id="basicinfo-input-quasiexaminationnumber" disabled>-->
-                                    <!--&lt;!&ndash;并且必须在表单项紧挨着的下方添加如下标签&ndash;&gt;-->
-                                    <!--<span class="alert-warn"></span>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                            <!--<div class="form-group">
+                                &lt;!&ndash;requred 必填样式（红色星号）&ndash;&gt;
+                                <label for="basicinfo-input-quasiexaminationnumber"
+                                       class="col-sm-3 control-label required">准考证号 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control " id="basicinfo-input-quasiexaminationnumber"
+                                           disabled>
+                                    &lt;!&ndash;并且必须在表单项紧挨着的下方添加如下标签&ndash;&gt;
+                                    <span class="alert-warn"></span>
+                                </div>
+                            </div>-->
                             <div class="form-group">
                                 <!--requred 必填样式（红色星号）-->
-                                <label for="basicinfo-input-realname" class="col-sm-3 control-label required">真实姓名 </label>
+                                <label for="basicinfo-input-realname"
+                                       class="col-sm-3 control-label required">真实姓名 </label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control need-check not-null"
                                            regex="" maxlength="10" id="basicinfo-input-realname"
@@ -95,10 +100,12 @@
                                 <div class="col-sm-9">
                                     <div class="radio">
                                         <label class="radio-inline">
-                                            <input type="radio" class="need-check not-null " name="basicinfo-radio-sex" value="男" checked> 男
+                                            <input type="radio" class="need-check not-null " name="basicinfo-radio-sex"
+                                                   value="男" checked> 男
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" class="need-check not-null" name="basicinfo-radio-sex" value="女"> 女
+                                            <input type="radio" class="need-check not-null" name="basicinfo-radio-sex"
+                                                   value="女"> 女
                                         </label>
                                     </div>
                                     <span class="alert-warn"></span>
@@ -117,7 +124,8 @@
                             </div>
                             <div class="form-group">
                                 <!--requred 必填样式（红色星号）-->
-                                <label for="basicinfo-input-idcardnumber" class="col-sm-3 control-label required">身份证号</label>
+                                <label for="basicinfo-input-idcardnumber"
+                                       class="col-sm-3 control-label required">身份证号</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control need-check not-null"
                                            regex="" maxlength="18" id="basicinfo-input-idcardnumber"
@@ -128,7 +136,8 @@
                             </div>
                             <div class="form-group">
                                 <!--requred 必填样式（红色星号）-->
-                                <label for="basicinfo-input-registeredresidence" class="col-sm-3 control-label required">户口所在地</label>
+                                <label for="basicinfo-input-registeredresidence"
+                                       class="col-sm-3 control-label required">户口所在地</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control need-check not-null"
                                            regex="" maxlength="50" id="basicinfo-input-registeredresidence"
@@ -136,59 +145,65 @@
                                     <!--并且必须在表单项紧挨着的下方添加如下标签-->
                                     <span class="alert-warn"></span>
                                 </div>
-                            </div> <div class="form-group">
-                            <!--requred 必填样式（红色星号）-->
-                            <label for="basicinfo-input-politicaloutlook" class="col-sm-3 control-label required">政治面貌</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control need-check not-null"
-                                       regex="" maxlength="15" id="basicinfo-input-politicaloutlook"
-                                       placeholder="请输入政治面貌">
-                                <!--并且必须在表单项紧挨着的下方添加如下标签-->
-                                <span class="alert-warn"></span>
                             </div>
-                        </div> <div class="form-group">
-                            <!--requred 必填样式（红色星号）-->
-                            <label for="basicinfo-input-nativeplace" class="col-sm-3 control-label required">籍贯</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control need-check not-null"
-                                       regex="" maxlength="20" id="basicinfo-input-nativeplace"
-                                       placeholder="请输入籍贯">
-                                <!--并且必须在表单项紧挨着的下方添加如下标签-->
-                                <span class="alert-warn"></span>
+                            <div class="form-group">
+                                <!--requred 必填样式（红色星号）-->
+                                <label for="basicinfo-input-politicaloutlook" class="col-sm-3 control-label required">政治面貌</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control need-check not-null"
+                                           regex="" maxlength="15" id="basicinfo-input-politicaloutlook"
+                                           placeholder="请输入政治面貌">
+                                    <!--并且必须在表单项紧挨着的下方添加如下标签-->
+                                    <span class="alert-warn"></span>
+                                </div>
                             </div>
-                        </div> <div class="form-group">
-                            <!--requred 必填样式（红色星号）-->
-                            <label for="basicinfo-input-email" class="col-sm-3 control-label required">邮箱地址</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control need-check not-null"
-                                       regex="" maxlength="30" id="basicinfo-input-email"
-                                       placeholder="请输入邮箱地址">
-                                <!--并且必须在表单项紧挨着的下方添加如下标签-->
-                                <span class="alert-warn"></span>
+                            <div class="form-group">
+                                <!--requred 必填样式（红色星号）-->
+                                <label for="basicinfo-input-nativeplace"
+                                       class="col-sm-3 control-label required">籍贯</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control need-check not-null"
+                                           regex="" maxlength="20" id="basicinfo-input-nativeplace"
+                                           placeholder="请输入籍贯">
+                                    <!--并且必须在表单项紧挨着的下方添加如下标签-->
+                                    <span class="alert-warn"></span>
+                                </div>
                             </div>
-                        </div> <div class="form-group">
-                            <!--requred 必填样式（红色星号）-->
-                            <label for="basicinfo-input-phonenumber" class="col-sm-3 control-label required">手机号</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control need-check not-null"
-                                       regex="" maxlength="11" id="basicinfo-input-phonenumber"
-                                       placeholder="请输入手机号">
-                                <!--并且必须在表单项紧挨着的下方添加如下标签-->
-                                <span class="alert-warn"></span>
+                            <div class="form-group">
+                                <!--requred 必填样式（红色星号）-->
+                                <label for="basicinfo-input-email" class="col-sm-3 control-label required">邮箱地址</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control need-check not-null"
+                                           regex="" maxlength="30" id="basicinfo-input-email"
+                                           placeholder="请输入邮箱地址">
+                                    <!--并且必须在表单项紧挨着的下方添加如下标签-->
+                                    <span class="alert-warn"></span>
+                                </div>
                             </div>
-                        </div> <div class="form-group">
-                            <!--requred 必填样式（红色星号）-->
-                            <label for="basicinfo-input-graduateschool" class="col-sm-3 control-label required">毕业学校</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control need-check not-null"
-                                       regex="" maxlength="50" id="basicinfo-input-graduateschool"
-                                       placeholder="请输入毕业学校">
-                                <!--并且必须在表单项紧挨着的下方添加如下标签-->
-                                <span class="alert-warn"></span>
+                            <div class="form-group">
+                                <!--requred 必填样式（红色星号）-->
+                                <label for="basicinfo-input-phonenumber"
+                                       class="col-sm-3 control-label required">手机号</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control need-check not-null"
+                                           regex="" maxlength="11" id="basicinfo-input-phonenumber"
+                                           placeholder="请输入手机号">
+                                    <!--并且必须在表单项紧挨着的下方添加如下标签-->
+                                    <span class="alert-warn"></span>
+                                </div>
                             </div>
-                        </div>
-
-
+                            <div class="form-group">
+                                <!--requred 必填样式（红色星号）-->
+                                <label for="basicinfo-input-graduateschool"
+                                       class="col-sm-3 control-label required">毕业学校</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control need-check not-null"
+                                           regex="" maxlength="50" id="basicinfo-input-graduateschool"
+                                           placeholder="请输入毕业学校">
+                                    <!--并且必须在表单项紧挨着的下方添加如下标签-->
+                                    <span class="alert-warn"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
