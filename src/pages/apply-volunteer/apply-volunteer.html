@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" href="../../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../lib/bootstrap-table/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../../css/common/common.css"/>
+    <link rel="stylesheet" href="../../css/apply-volunteer/apply-volunteer.css"/>
+    <title>考生报考志愿</title>
+</head>
+
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">考生登录系统</a></li>
+    <li class="active">考生报考志愿</li>
+</ol>
+<div class="container">
+    <div class="page-header">
+        <h3>报考志愿</h3>
+    </div>
+    <!--***********报考志愿 -张子腾 2018年10月15日09:54:03**********-->
+    <!--搜索部分-->
+    <div class="search-content">
+        <div class="search-head">
+            <form>
+                <div class="search-from form-group">
+                    <label>学校名称：</label>
+                    <input type="text" id="school-input-search" class="from-controller" placeholder="请输入学校名称">
+                </div>
+                <div  class="search-from form-group">
+                    <label>专业名称：</label>
+                    <input type="text" id="discipline-input-search" class="from-controller" placeholder="请输入专业名称">
+                </div>
+            </form>
+        </div>
+        <div class="search-submit">
+            <button class="btn btn-primary" id="plan-button-search" onclick="SearchVolunteer()">搜索</button>
+            <button class="btn" id="plan-button-reset" onclick="ResetVolunteerInput()">重置</button>
+        </div>
+    </div>
+    <hr>
+    <!--2018年10月10日11:15:31 表格新增修改删除按钮-->
+    <div class="btn-left">
+        <button type="button" class="btn btn-primary" onclick="AddVolunteerModal()" data-target="#add-volunteer-modal" data-toggle="modal" style="padding: 6px 20px;">申报</button>
+        <button type="button" class="btn btn-success" onclick="AlterVolunteerModal()" style="padding: 6px 20px;">修改</button>
+        <button type="button" class="btn btn-danger" onclick="DeleteVolunteer()" style="padding: 6px 20px;">批量删除</button>
+    </div>
+    <br>
+    <div id="volunteer-table">
+        <table id="volunteer-table-all" style="text-align: center;"></table>
+    </div>
+</div>
+
+<!--创建修改按钮模态窗-->
+<div class="modal fade" id="add-volunteer-modal" data-backdrop="static">
+    <div class="modal-dialog" role="document" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 id="plan-modal-title">申报志愿</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin: 0 auto;">
+                    <div class="col-xs-12 form-horizontal" id="add-volunteer-info">
+                        <div class="form-group">
+                            <div class="col-sm-12 form-inline">
+                                <label for="add-input-school" class="col-sm-4 control-label">学校名称：</label>
+                                <input type="text" class="form-control need-check not-null" style="width: 200px;" regex="account" maxlength="30" id="add-input-school" placeholder="请输入准考证号">
+                                <span class="alert-warn" style="margin: 0px 30px 0px 130px;"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 form-inline">
+                                <label for="add-input-discipline" class="col-sm-4 control-label">专业名称：</label>
+                                <input type="text" class="form-control need-check not-null" style="width: 200px;" regex="account" maxlength="30" id="add-input-discipline" placeholder="请输入账户名">
+                                <span class="alert-warn" style="margin: 0px 30px 0px 130px;"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 form-inline">
+                                <label for="add-input-years" class="col-sm-4 control-label">志愿编号：</label>
+                                <select class="from-controller" id="add-input-years" style="width: 200px">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer" style="text-align: center;">
+                            <!--<button class="btn" data-dismiss="modal">取消</button>-->
+                            <button class="btn btn-primary save-check" id="add-button-submit" style="width: 200px;">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**********JS部分*********-->
+<script src="../../lib/js/jquery.min.js"></script>
+<script src="../../../config/config.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../lib/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../lib/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+<script src="../../utils/common-util.js"></script>
+<script src="../../utils/const-manager.js"></script>
+<script src="../../js/apply-volunteer/apply-volunteer.js"></script>
+</body>
+</html>

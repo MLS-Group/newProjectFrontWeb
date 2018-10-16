@@ -34,7 +34,11 @@ const POP_TIP = {
     completeInfo: '请完善信息',//by qitian
     checkInfo: '请核对信息',//,by qitian
     confirm: '您确定执行此操作吗？',
-    choiceOne: '请选择一条选项'
+    choiceOne: '请选择一条选项',
+    choiceOnlyOne: '只能选择一条选项', //by 刘志杰
+    examineeSuccess:"录取成功", //by 刘志杰
+    selectFail:"查询失败", //by 刘志杰
+
 };
 
 /**
@@ -46,7 +50,9 @@ const POP_TIP = {
  */
 const INPUT_ALERT = {
     account: '请输入字母或数字，长度限制为4-15',//by qitian
-    notNull: '此项不可为空'//by qitian
+    notNull: '此项不可为空',//by qitian
+
+
 };
 
 /**
@@ -103,15 +109,16 @@ const AJAX_URL = {
     answerSetting: requestJson ? '../../jsonDatas/answerSetting.json' : '',
     //用户管理 刘志杰 2018-09-28
     userManage: requestJson ? '../../jsonDatas/userData.json' : '',
+    //考生管理(分页查询) 刘志杰 2018-10-12
+    exanineeSelect: requestJson ? '' : requestUrl + "api/generate/examineeinformation/queryByPage",
+    //考生管理(添加) 刘志杰 2018-10-12
+    exanineeInsert: requestJson ? '' : requestUrl + "api/generate/examineeinformation/informationEntry",
     /**
-     *@desc 日志管理，答疑管理数据
-     *@date 2018/09/27 09:23:06
+     *@desc 招生信息查询数据
+     *@date 2018/10/15
      *@author 宣文斌
      */
-    questionManage: requestJson ? '../../jsonDatas/questionManageData.json' : '',
-    SBOMChangeLogData: requestJson ? '../../jsonDatas/SBOMChangeLogData.json' : '',
-    operationLogData: requestJson ? '../../jsonDatas/operationLogData.json' : '',
-    announceManagementData: requestJson ? '../../jsonDatas/announceManagementData.json' : '',
+    enrolmentinfoSelectData: requestJson ? '../../jsonDatas/enrolmentinfoSelect.json' : '',
     /**
      *@desc
      *@date 2018/09/27 10:05:20
