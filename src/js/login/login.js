@@ -15,19 +15,19 @@ $(function () {
  */
 
 (function check($) {
-    var settings = {
+    let settings = {
         e: 'idcode',
         codeType: {name: 'follow', len: 4},//len是修改验证码长度的
         codeTip: '<img class="F5" src="../../images/f5.png" />',
         inputID: 'captchac'//验证元素的ID
     };
 
-    var _set = {
+    let _set = {
         storeLable: 'codeval',
         store: '#ehong-code-input',
         codeval: '#ehong-code'
     };
-    var flag = "验证码错误";
+    let flag = "验证码错误";
     $.idcode = {
         getCode: function (option) {
             _commSetting(option);
@@ -41,13 +41,13 @@ $(function () {
         validateCode: function (option) {
             console.log(option)
             _commSetting(option);
-            var inputV;
+            let inputV;
             if (settings.inputID) {
                 inputV = $('#' + settings.inputID).val();
             } else {
                 inputV = $(_set.store).val();
             }
-            if (inputV.toUpperCase() == _storeData(_set.storeLable, null).toUpperCase()){
+            if (inputV.toUpperCase() == _storeData(_set.storeLable, null).toUpperCase()) {
                 //修改的不区分大小写
                 return true;
             } else {
@@ -62,7 +62,7 @@ $(function () {
     }
 
     function _storeData(dataLabel, data) {
-        var store = $(_set.codeval).get(0);
+        let store = $(_set.codeval).get(0);
         if (data) {
             $.data(store, dataLabel, data);
         } else {
@@ -71,9 +71,9 @@ $(function () {
     }
 
     function _setCodeStyle(eid, codeType, codeLength) {
-        var codeObj = _createCode(settings.codeType.name, settings.codeType.len);
-        var randNum = Math.floor(Math.random() * 6);
-        var htmlCode = '';
+        let codeObj = _createCode(settings.codeType.name, settings.codeType.len);
+        let randNum = Math.floor(Math.random() * 6);
+        let htmlCode = '';
         if (!settings.inputID) {
             htmlCode = '<span><input id="ehong-code-input" type="text" maxlength="4" /></span>';
         }
@@ -85,10 +85,10 @@ $(function () {
     }
 
     function _setStyle(codeObj) {
-        var fnCodeObj = new Array();
-        var col = new Array('#BF0C43', '#E69A2A', '#707F02', '#18975F', '#BC3087', '#73C841', '#780320', '#90719B', '#1F72D8', '#D6A03C', '#6B486E', '#243F5F', '#16BDB5');
-        var charIndex;
-        for (var i = 0; i < codeObj.length; i++) {
+        let fnCodeObj = [];
+        let col = ['#BF0C43', '#E69A2A', '#707F02', '#18975F', '#BC3087', '#73C841', '#780320', '#90719B', '#1F72D8', '#D6A03C', '#6B486E', '#243F5F', '#16BDB5'];
+        let charIndex;
+        for (let i = 0; i < codeObj.length; i++) {
             charIndex = Math.floor(Math.random() * col.length);
             fnCodeObj.push('<font color="' + col[charIndex] + '">' + codeObj.charAt(i) + '</font>');
         }
@@ -96,7 +96,7 @@ $(function () {
     }
 
     function _createCode(codeType, codeLength) {
-        var codeObj;
+        let codeObj;
         if (codeType == 'follow') {
             codeObj = _createCodeFollow(codeLength);
         } else if (codeType == 'calc') {
@@ -108,10 +108,12 @@ $(function () {
     }
 
     function _createCodeCalc(codeLength) {
-        var code1, code2, codeResult;
-        var selectChar = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-        var charIndex;
-        for (var i = 0; i < codeLength; i++) {
+        let code1,
+code2,
+codeResult;
+        let selectChar = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        let charIndex;
+        for (let i = 0; i < codeLength; i++) {
             charIndex = Math.floor(Math.random() * selectChar.length);
             code1 += selectChar[charIndex];
 
@@ -122,11 +124,11 @@ $(function () {
     }
 
     function _createCodeFollow(codeLength) {
-        var code = "";
-        var selectChar = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+        let code = "";
+        let selectChar = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-        for (var i = 0; i < codeLength; i++) {
-            var charIndex = Math.floor(Math.random() * selectChar.length);
+        for (let i = 0; i < codeLength; i++) {
+            let charIndex = Math.floor(Math.random() * selectChar.length);
             if (charIndex % 2 == 0) {
                 code += selectChar[charIndex].toLowerCase();
             } else {
