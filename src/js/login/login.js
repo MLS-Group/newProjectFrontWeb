@@ -138,4 +138,67 @@ codeResult;
         return code;
     }
 
+    /**
+     * 登录按钮
+     * 刘笑天 2018-10-15
+     * 最后修改 刘笑天 2018-10-19
+     */
+    $("#login_button_examineelogin").click(function () {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.ajax({
+            url: AJAX_URL.examineeLogin,
+            type: requestJson ? 'get' : 'post',
+            data: {
+                "userAccount": username,
+                "userPassword": password
+            },
+            dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success:function (data) {
+                if (data.ok) {
+                    alert(data.message)
+                    window.location.href = '../default/default.html';
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    });
+    /**
+     * 注册模态框 验证准考证号
+     * 若验证成功 下面的文本框才可以输入
+     * 刘笑天 2018-10-19
+     */
+    $("#regist-input-examinationnumber").blur(function () {
+        var quasiExaminationNumber = $("#regist-input-examinationnumber").val();
+        if (quasiExaminationNumber != "") {
+            $.ajax({
+                url: AJAX_URL.checkExaminationNumber,
+                type: "post",
+                data: {
+                    "quasiExaminationNumber": quasiExaminationNumber
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.ok) {
+                        alert(data.message);
+                        $("#regist-input-username").attr("disabled",false);
+                        $("#regist-input-password").attr("disabled",false);
+                        $("#regist-input-email").attr("disabled",false);
+                        $("#regist-input-phonenumber").attr("disabled",false);
+                        $("#regist-input-verfication").attr("disabled",false);
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        } else {
+
+        }
+
+
+
+    });
+
 })(jQuery);

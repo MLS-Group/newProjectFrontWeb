@@ -125,5 +125,12 @@ const AJAX_URL = {
     personnelConfiguration: requestJson ? '../../jsonDatas/personnelConfiguration.json' : '',
     bomChange: requestJson ? '../../jsonDatas/bomChange.json' : '',
     administratorList: requestJson ? '../../jsonDatas/administratorList.json' : '',
+    //考生登录 刘笑天 2018-10-15
+    examineeLogin: requestJson ? '../../jsonDatas/login.json' : requestUrl + 'api/generate/userinformation/userLogin',
+    //准考证号验证 刘笑天 2018-10-19
+    checkExaminationNumber: requestJson ? '../../jsonDatas/checkExaminationNumber.json' : requestUrl + '/api/generate/examineeinformation/checkExaminationNumber',
+    //崔雨鑫
+    announceData: requestJson ? '../../jsonDatas/announceData.json' : '',
+    announceDetailData: requestJson ? '../../jsonDatas/announceDetailData.json' : '',
 
 }
