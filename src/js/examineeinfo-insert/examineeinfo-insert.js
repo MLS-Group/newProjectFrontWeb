@@ -2,6 +2,7 @@
 
 
 $(function () {
+    //进入页面，加载考生信息表格
     tableInit(AJAX_URL.exanineeSelect)
 })
 
@@ -24,7 +25,7 @@ function tableInit(tableUrl) {
         pagination: true,                   //是否显示分页（*）
         sortable: false,                     //是否启用排序
         sortOrder: "asc",                   //排序方式
-        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        sidePagination: requestJson ? "client" : "server",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
         pageSize: 10,                     //每页的记录行数（*）
         pageList: [10],        //可供选择的每页的行数（*）
@@ -35,7 +36,7 @@ function tableInit(tableUrl) {
         minimumCountColumns: 2,             //最少允许的列数
         clickToSelect: true,                //是否启用点击选中行
         //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-        uniqueId: "userkey",                     //每一行的唯一标识，一般为主键列
+        uniqueId: "examineeinformationEO.examineekey",                     //每一行的唯一标识，一般为主键列
         showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
@@ -54,7 +55,7 @@ function tableInit(tableUrl) {
             {
                 field: 'checkbox',
                 checkbox: true,
-                visible: false               //是否显示复选框
+                visible: true               //是否显示复选框
             }, {
                 field: 'examineekey',
                 title: '考生主键'
@@ -102,7 +103,6 @@ function tableInit(tableUrl) {
                 field: 'userpassword',
                 title: '密码'
             }],
-
         onLoadSuccess: function (e) {
             // console.log(e)
         },
@@ -113,7 +113,7 @@ function tableInit(tableUrl) {
         },
         //客户端分页，需要指定到rows
         responseHandler: function (result) {
-            // console.log(result)
+            console.log(result)
             if (result.ok) {
                 if (requestJson) {
                     return result.rows;
@@ -141,13 +141,35 @@ function tableInit(tableUrl) {
  * @Date 2018-10-12
  */
 function openModal() {
-    //清除提示
+    let selections = $("#my-table").bootstrapTable("getSelections");
+    //只能选择一条记录来操作。 判断是否选择了一条记录，否则 提示 且 跳出 函数。
+    if (selections.length <= 0) {
+        poptip.alert(POP_TIP.choiceOne);
+        return 0;
+    } else if (selections.length > 1) {
+        poptip.alert(POP_TIP.choiceOnlyOne);
+        return 0;
+    }
+    //给表单赋值
+    $("#logininfo-input-userkey").val(selections[0].userkey)
+    $("#logininfo-input-account").val(selections[0].useraccount);
+    $("#logininfo-input-password").val(selections[0].userpassword)
+    $("#basicinfo-input-examineekey").val(selections[0].examineekey)
+    $("#basicinfo-input-quasiexaminationnumber").val(selections[0].quasiexaminationnumber)
+    $("#basicinfo-input-realname").val(selections[0].realname)
+    $("input[name='basicinfo-radio-sex'][value=" + selections[0].sex + "]").attr("checked", true)
+    $("#basicinfo-input-age").val(selections[0].age)
+    $("#basicinfo-input-idcardnumber").val(selections[0].idcardnumber)
+    $("#basicinfo-input-registeredresidence").val(selections[0].registeredresidence)
+    $("#basicinfo-input-politicaloutlook").val(selections[0].politicaloutlook)
+    $("#basicinfo-input-nativeplace").val(selections[0].nativeplace)
+    $("#basicinfo-input-email").val(selections[0].email)
+    $("#basicinfo-input-phonenumber").val(selections[0].phonenumber)
+    $("#basicinfo-input-graduateschool").val(selections[0].graduateschool)
+    //清空提示
     $(".alert-warn").text("");
-    //清除内容
-    $("#my-modal input").val("");
     //打开模态框
     $("#my-modal").modal("show");
-    console.log($("input[type='radio'][name='basicinfo-radio-sex']:checked"))
 }
 
 /**
@@ -160,11 +182,13 @@ function saveInfo() {
     //模态框中填写的考生信息(登录信息，基本信息)
     let examineeObj = {
         "userinformationEO": {
-            // "useraccount":$("#logininfo-input-account").val(),
+            "userkey": $("#logininfo-input-userkey").val(),
+            "useraccount": $("#logininfo-input-account").val(),
             "userpassword": $("#logininfo-input-password").val(),
         },
         "examineeinformationEO": {
-            // "quasiexaminationnumber": $("#basicinfo-input-quasiexaminationnumber").val(),
+            "examineekey": $("#basicinfo-input-examineekey").val(),
+            "quasiexaminationnumber": $("#basicinfo-input-quasiexaminationnumber").val(),
             "realname": $("#basicinfo-input-realname").val(),
             "sex": $("input[type='radio'][name='basicinfo-radio-sex']:checked").val(),
             "age": $("#basicinfo-input-age").val(),
@@ -177,17 +201,27 @@ function saveInfo() {
             "graduateschool": $("#basicinfo-input-graduateschool").val(),
         }
     }
-    console.log(examineeObj)
-    // $.ajax({
-    //     url: AJAX_URL.exanineeInsert,
-    //     type: requestJson ? 'get' : 'post',
-    //     data: JSON.stringify(examineeObj),
-    //     dataType: "json",
-    //     contentType: "application/json;charset=utf-8",
-    //     success: function (data) {
-    //         poptip.alert(POP_TIP.examineeSuccess);
-    //         $("#my-modal").modal("hide");
-    //         $('#my-table').bootstrapTable('refresh');
-    //     }
-    // })
+    // console.log(examineeObj)
+    if (requestJson) {
+        $("#my-modal").modal("hide");
+        poptip.alert(POP_TIP.examineeSuccess);
+    } else {
+        $.ajax({
+            url: AJAX_URL.exanineeInsert,
+            type: requestJson ? 'get' : 'post',
+            data: JSON.stringify(examineeObj),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data.ok) {
+                    $("#my-modal").modal("hide");
+                    poptip.alert(POP_TIP.examineeSuccess);
+                    $('#my-table').bootstrapTable("refresh");
+                } else {
+                    poptip.alert(data.message);
+                }
+            }
+        })
+    }
+
 }

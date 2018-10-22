@@ -37,8 +37,8 @@ const POP_TIP = {
     choiceOne: '请选择一条选项',
     choiceOnlyOne: '只能选择一条选项', //by 刘志杰
     examineeSuccess:"录取成功", //by 刘志杰
+    examineeFail:"录取失败", //by 刘志杰
     selectFail:"查询失败", //by 刘志杰
-
 };
 
 /**
@@ -51,7 +51,9 @@ const POP_TIP = {
 const INPUT_ALERT = {
     account: '请输入字母或数字，长度限制为4-15',//by qitian
     notNull: '此项不可为空',//by qitian
-
+    idNumber3: "身份证长度必须是18位", //by 刘志杰
+    number: "只能输入数字", //by 刘志杰
+    email: "邮箱格式不正确",//by 刘志杰
 
 };
 
@@ -69,8 +71,9 @@ const REGEX = {
     emailModify: /^[A-Za-z0-9\._]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/, //12_3.3@qq.self.cn
     number: /^[0-9]*$/, //仅数字
     chineseCharacters: /^[\u4e00-\u9fa5]{0,}$/, //中文
-    IDNumber: /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[X])$/, //身份证号码
-    IDNumber2: /^[0-9a-zA-Z]{,18}*$/g, //身份证号码，仅控制位数不能超过18位
+    idNumber: /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[X])$/, //身份证号码
+    idNumber2: /^[0-9a-zA-Z]{,18}*$/g, //身份证号码，仅控制位数不能超过18位
+    idNumber3: /^[0-9a-zA-Z]{18}$/, //身份证号，长度必须是18位  by 刘志杰
     account: /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/,
     password: /^[A-Za-z0-9][a-zA-Z0-9_]{5,20}$/, //验证密码，数字、字母、下划线，不少于5位
     strongPassword: /^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/,
@@ -103,16 +106,13 @@ const AJAX_URL = {
      *@author zhangziteng
      */
     recruitPlanData: requestJson ? '../../jsonDatas/recruitPlanData.json' : '',
-    //经销商管理 刘志杰 2018-09-25
-    distributorData: requestJson ? '../../jsonDatas/distributorData.json' : '',
-    //系统设置-答疑设置（预警列表） 刘志杰 2018-09-28
-    answerSetting: requestJson ? '../../jsonDatas/answerSetting.json' : '',
-    //用户管理 刘志杰 2018-09-28
-    userManage: requestJson ? '../../jsonDatas/userData.json' : '',
+
+   /*====================考生信息录入==============================*/
     //考生管理(分页查询) 刘志杰 2018-10-12
-    exanineeSelect: requestJson ? '' : requestUrl + "api/generate/examineeinformation/queryByPage",
+    exanineeSelect: requestJson ? '../../jsonDatas/enrolmentinfoInsert.json' : requestUrl + "api/generate/examineeinformation/queryByPage",
     //考生管理(添加) 刘志杰 2018-10-12
     exanineeInsert: requestJson ? '' : requestUrl + "api/generate/examineeinformation/informationEntry",
+
     /**
      *@desc 招生信息查询数据
      *@date 2018/10/15
@@ -127,16 +127,21 @@ const AJAX_URL = {
     personnelConfiguration: requestJson ? '../../jsonDatas/personnelConfiguration.json' : '',
     bomChange: requestJson ? '../../jsonDatas/bomChange.json' : '',
     administratorList: requestJson ? '../../jsonDatas/administratorList.json' : '',
+    //考生登录 刘笑天 2018-10-15
+    examineeLogin: requestJson ? '../../jsonDatas/login.json' : requestUrl + 'api/generate/userinformation/userLogin',
+    //准考证号验证 刘笑天 2018-10-19
+    checkExaminationNumber: requestJson ? '../../jsonDatas/checkExaminationNumber.json' : requestUrl + '/api/generate/examineeinformation/checkExaminationNumber',
+    //报考分析 刘笑天 2018-10-22
+    signAnalysis: requestJson ? '../../jsonDatas/signAnalysis.json' : '',
+    //考生注册 刘笑天 2018-10-22
+    userRegist: requestJson ? '../../jsonDatas/userRegist.json' : requestUrl + '/api/generate/examineeinformation/examineeRegist',
+
+
+
+
+
     //崔雨鑫
     announceData: requestJson ? '../../jsonDatas/announceData.json' : '',
     announceDetailData: requestJson ? '../../jsonDatas/announceDetailData.json' : '',
 
-    //王克龙
-    knowledgeDetial: requestJson ? '../../jsonDatas/knowledgeDetial.json' : '',
-    IndexEvent: requestJson ? '../../jsonDatas/index-event.json' : '',
-    IndexData: requestJson ? '../../jsonDatas/index-data.json' : '',
-    IndexSpare: requestJson ? '../../jsonDatas/index-spare.json' : '',
-    vinQuery: requestJson ? '../../jsonDatas/vin-query.json' : '',
-    vinList: requestJson ? '../../jsonDatas/vin-list.json' : '',
-    signAnalysis: requestJson ? '../../jsonDatas/signAnalysis.json' : ''
 }

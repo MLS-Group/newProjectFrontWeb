@@ -2,6 +2,7 @@
 body, html {
     background-color: #fff;
     height: 100%;
+    overflow-x: hidden;
 }
 
 .form-group {
@@ -29,7 +30,8 @@ body, html {
 }
 
 .container .content-section .btn-section button {
-    width: 100px;
+    /*width: 100px;*/
+    padding: 6px 20px;
 }
 
 .container .table-section {
