@@ -44,12 +44,16 @@ function tableInit(tableUrl) {
         detailView: false,                  //是否显示父子表
         //得到查询的参数
         queryParams: function (params) {
+            console.log($("#select-input-school").val())
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
                 rows: params.limit,                         //页面大小
                 page: (params.offset / params.limit) + 1,   //页码
                 sort: params.sort,      //排序列名
-                sortOrder: params.order //排位命令（desc，asc）
+                sortOrder: params.order, //排位命令（desc，asc）
+                schoolname:$("#select-input-school").val(),
+                majorname: $("#select-input-major").val(),
+                provincename: $("#select-input-province").val()
             };
             return temp;
         },
@@ -113,27 +117,36 @@ function tableInit(tableUrl) {
 
 //学校，专业，省份 查询事件
 $("#search-button").click(function () {
-let selectObj = {  //查询 选择的信息
-    "schoolname": $("#select-input-school").val(),
-    "majorname": $("#select-input-major").val(),
-    "provincename": $("#select-input-province").val()
-}
-$.ajax({
-    url: AJAX_URL.enrolmentinfoSelectData,
-    type: requestJson ? 'get' : 'post',
-    data: JSON.stringify(selectObj),
-    dataType: "json",
-    contentType: "application/json;charset=utf-8",
-    success: function (data) {
-        if (data.ok) {
-            console.log(data);
-            // poptip.alert(POP_TIP);
-            // tableInit(AJAX_URL.enrolmentinfoSelectData);
-            // $('#show-table-enrolmentinfo').bootstrapTable('destroy');
-            // $('#show-table-enrolmentinfo').bootstrapTable("load",data.data.list)
-        }
-    }
-})
+
+    tableInit(AJAX_URL.enrolmentinfoSelectData);
+
+// var selectObj = {  //查询 选择的信息
+//     "schoolname": $("#select-input-school").val(),
+//     "majorname": $("#select-input-major").val(),
+//     "provincename": $("#select-input-province").val()
+// };
+// $.ajax({
+//     url: AJAX_URL.enrolmentinfoSelectData,
+//     type: requestJson ? 'get' : 'post',
+//     data: {
+//         "schoolname": $("#select-input-school").val(),
+//         "majorname": $("#select-input-major").val(),
+//         "provincename": $("#select-input-province").val()
+//     },
+//     dataType: "json",
+//     contentType: "application/json;charset=utf-8",
+//     success: function (data) {
+//         console.log(data);
+//         if (data.ok) {
+//             // console.log(data);
+//             // poptip.alert(POP_TIP);
+//             // tableInit(AJAX_URL.enrolmentinfoSelectData);
+//             // $('#show-table-enrolmentinfo').bootstrapTable('destroy');
+//             // $('#show-table-enrolmentinfo').bootstrapTable("load",data.data.list)
+//             $('#show-table-enrolmentinfo').bootstrapTable("refresh");
+//         }
+//     }
+// })
 })
 
 
