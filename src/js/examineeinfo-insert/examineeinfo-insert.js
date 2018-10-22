@@ -142,6 +142,7 @@ function tableInit(tableUrl) {
  */
 function openModal() {
     let selections = $("#my-table").bootstrapTable("getSelections");
+    //只能选择一条记录来操作。 判断是否选择了一条记录，否则 提示 且 跳出 函数。
     if (selections.length <= 0) {
         poptip.alert(POP_TIP.choiceOne);
         return 0;
@@ -165,7 +166,7 @@ function openModal() {
     $("#basicinfo-input-email").val(selections[0].email)
     $("#basicinfo-input-phonenumber").val(selections[0].phonenumber)
     $("#basicinfo-input-graduateschool").val(selections[0].graduateschool)
-    //清除提示
+    //清空提示
     $(".alert-warn").text("");
     //打开模态框
     $("#my-modal").modal("show");
@@ -215,8 +216,9 @@ function saveInfo() {
                 if (data.ok) {
                     $("#my-modal").modal("hide");
                     poptip.alert(POP_TIP.examineeSuccess);
+                    $('#my-table').bootstrapTable("refresh");
                 } else {
-                    poptip.alert(POP_TIP.examineeFail);
+                    poptip.alert(data.message);
                 }
             }
         })

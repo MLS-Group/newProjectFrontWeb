@@ -51,7 +51,9 @@ const POP_TIP = {
 const INPUT_ALERT = {
     account: '请输入字母或数字，长度限制为4-15',//by qitian
     notNull: '此项不可为空',//by qitian
-    idNumber3: "身份证长度必须是18位" //by 刘志杰
+    idNumber3: "身份证长度必须是18位", //by 刘志杰
+    number: "只能输入数字", //by 刘志杰
+    email: "邮箱格式不正确",//by 刘志杰
 
 };
 

@@ -4,7 +4,7 @@
  * @Author qitian
  */
 
-const serverIp = "192.168.191.1";
+const serverIp = "192.168.1.139";
 // const serverIp = "localhost";
 const serverPort = "8080";
 const requestUrl = "http://" + serverIp + ":" + serverPort + "/";
