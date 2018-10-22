@@ -131,6 +131,9 @@ const AJAX_URL = {
     checkExaminationNumber: requestJson ? '../../jsonDatas/checkExaminationNumber.json' : requestUrl + '/api/generate/examineeinformation/checkExaminationNumber',
     //报考分析 刘笑天 2018-10-22
     signAnalysis: requestJson ? '../../jsonDatas/signAnalysis.json' : '',
+    //考生注册 刘笑天 2018-10-22
+    userRegist: requestJson ? '../../jsonDatas/userRegist.json' : requestUrl + '/api/generate/examineeinformation/examineeRegist',
+
 
 
 

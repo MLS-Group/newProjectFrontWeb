@@ -198,5 +198,33 @@ codeResult;
     /**
      * 注册模态框 注册按钮
      */
+    $("#regist-button-userreg").click(function() {
+        var quasiExaminationNumber = $("#regist-input-examinationnumber").val();
+        var userAccount = $("#regist-input-username").val();
+        var userPassword = $("#regist-input-password").val();
+        var email = $("#regist-input-email").val();
+        var phoneNumber = $("#regist-input-phonenumber").val();
+        $.ajax({
+            url: AJAX_URL.userRegist,
+            type: 'post',
+            data: JSON.stringify({
+
+                "examineeinformationEO": {
+                    "email": email,
+                    "phonenumber": phoneNumber,
+                    "quasiexaminationnumber": quasiExaminationNumber
+                },
+                "userinformationEO": {
+                    "useraccount": userAccount,
+                    "userpassword": userPassword
+                }
+            }),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                alert(data.message);
+            }
+        });
+    });
 
 })(jQuery);
