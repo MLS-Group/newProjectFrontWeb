@@ -10,7 +10,7 @@
  *@author zhangziteng
  */
 $(function () {
-    tableInit();
+    tableInit(AJAX_URL.applyVolunteer);
 });
 
 /**
@@ -21,10 +21,10 @@ $(function () {
 function tableInit(tableUrl) {
     $('#volunteer-table-all').bootstrapTable({
         url: tableUrl,
-        method: requestJson ? 'get' : 'post',                      //请求方式（*）
+        method: requestJson ? 'post' : 'get',                      //请求方式（*）
         dataType: "json",
         //toolbar: '#toolbar',              //工具按钮用哪个容器
-        striped: true,                      //是否显示行间隔色
+        striped: false,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         pagination: false,                   //是否显示分页（*）
         // paginationHAlign:'center',       //分页水平位置
@@ -52,7 +52,8 @@ function tableInit(tableUrl) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
                 rows: params.limit,                         //页面大小
-                page: (params.offset / params.limit) + 1,   //页码
+                examinationnumber:'20115939',
+                // page: (params.offset / params.limit) + 1,   //页码
                 sort: params.sort,      //排序列名
                 sortOrder: params.order //排位命令（desc，asc）
             };
@@ -62,23 +63,23 @@ function tableInit(tableUrl) {
             checkbox: true,
             visible: true                  //是否显示复选框
         }, {
-            field: 'majorkey',
+            field: 'schoolname',
             title: '准考证号',
             width:200
         }, {
-            field: 'majorname',
+            field: 'schoolname',
             title: '志愿编号',
             width:200
         }, {
-            field: 'majorname',
+            field: 'SchoolInformationEO.schoolname',
             title: '学校名称',
             width:300
         },{
-            field: 'majorname',
+            field: 'MajorInformationEO.majorname',
             title: '专业名称',
             width:200
         },{
-            field: 'createtime',
+            field: 'declaretime',
             title: '申报时间',
             width:200
         }

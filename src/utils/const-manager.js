@@ -104,7 +104,16 @@ const AJAX_URL = {
      *@author zhangziteng
      */
     recruitPlanData: requestJson ? '../../jsonDatas/recruitPlanData.json' : '',
-
+    //修改密码 张子腾 2018-10-22
+    updatePassword: requestJson ? '../../jsonDatas/updatePassword.json' : requestUrl + '/api/generate/userinformation',
+    //校验旧密码 张子腾 2018-10-22
+    checkPassword: requestJson ? '../../jsonDatas/checkPassword.json' : requestUrl + '/api/generate/userinformation/checkOldPassword',
+    /**
+     *@desc 考生报考志愿
+     *@date 2018/10/22 14:30:40
+     *@author zhangziteng
+     */
+    applyVolunteer: requestJson ? '../../jsonDatas/applyVolunteer.json' : requestUrl + '/api/generate/examineevolunteerinformation/getExamineeVolunteerInformation',
    /*====================考生信息录入==============================*/
     //考生管理(分页查询) 刘志杰 2018-10-12
     exanineeSelect: requestJson ? '../../jsonDatas/enrolmentinfoInsert.json' : requestUrl + "api/generate/examineeinformation/queryByPage",
