@@ -118,7 +118,7 @@ const AJAX_URL = {
      *@date 2018/10/15
      *@author 宣文斌
      */
-    enrolmentinfoSelectData: requestJson ? '../../jsonDatas/enrolmentinfoSelect.json' : '',
+    enrolmentinfoSelectData: requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/queryAdminssionInfoByPage',
     /**
      *@desc
      *@date 2018/09/27 10:05:20
