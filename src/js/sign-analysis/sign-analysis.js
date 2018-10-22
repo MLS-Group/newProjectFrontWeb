@@ -1,3 +1,7 @@
+/**
+ * 报考分析JS
+ * 刘笑天 20181022
+ */
 $(function() {
     $("#signanalysis-table").bootstrapTable({
         url: AJAX_URL.signAnalysis,

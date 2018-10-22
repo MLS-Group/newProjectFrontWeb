@@ -131,6 +131,15 @@ const AJAX_URL = {
     examineeLogin: requestJson ? '../../jsonDatas/login.json' : requestUrl + 'api/generate/userinformation/userLogin',
     //准考证号验证 刘笑天 2018-10-19
     checkExaminationNumber: requestJson ? '../../jsonDatas/checkExaminationNumber.json' : requestUrl + '/api/generate/examineeinformation/checkExaminationNumber',
+    //报考分析 刘笑天 2018-10-22
+    signAnalysis: requestJson ? '../../jsonDatas/signAnalysis.json' : '',
+    //考生注册 刘笑天 2018-10-22
+    userRegist: requestJson ? '../../jsonDatas/userRegist.json' : requestUrl + '/api/generate/examineeinformation/examineeRegist',
+
+
+
+
+
     //崔雨鑫
     announceData: requestJson ? '../../jsonDatas/announceData.json' : '',
     announceDetailData: requestJson ? '../../jsonDatas/announceDetailData.json' : '',
