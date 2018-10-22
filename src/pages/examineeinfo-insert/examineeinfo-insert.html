@@ -76,7 +76,7 @@
                                        class="col-sm-3 control-label ">准考证号 </label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control " id="basicinfo-input-quasiexaminationnumber"
-                                           disabled>
+                                           >
                                     <span class="alert-warn"></span>
                                 </div>
                             </div>
@@ -109,7 +109,8 @@
                             <div class="form-group">
                                 <label for="basicinfo-input-age" class="col-sm-3 control-label required">年龄</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control need-check not-null"
+                                    <input type="number" class="form-control need-check not-null"
+                                           regex="number"
                                            maxlength="2" id="basicinfo-input-age"
                                            placeholder="请输入年龄">
                                     <span class="alert-warn"></span>
@@ -158,6 +159,7 @@
                                 <label for="basicinfo-input-email" class="col-sm-3 control-label required">邮箱地址</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control need-check not-null"
+                                           regex="email"
                                            maxlength="30" id="basicinfo-input-email"
                                            placeholder="请输入邮箱地址">
                                     <span class="alert-warn"></span>
@@ -167,7 +169,8 @@
                                 <label for="basicinfo-input-phonenumber"
                                        class="col-sm-3 control-label required">手机号</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control need-check not-null"
+                                    <input type="number" class="form-control need-check not-null"
+                                           regex="number"
                                            maxlength="11" id="basicinfo-input-phonenumber"
                                            placeholder="请输入手机号">
                                     <span class="alert-warn"></span>
