@@ -22,14 +22,15 @@ function tableInit(tableUrl) {
     $('#volunteer-table-all').bootstrapTable({
         url: tableUrl,
         method: requestJson ? 'post' : 'get',                      //请求方式（*）
-        dataType: "json",
+        // dataType: "json",
+        contentType: "application/json;charset=utf-8",
         //toolbar: '#toolbar',              //工具按钮用哪个容器
         striped: false,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         pagination: false,                   //是否显示分页（*）
         // paginationHAlign:'center',       //分页水平位置
         paginationDetailHAlign:"right",      //分页详细信息位置
-        sortName:'BirthDate',                //排序的数据字段名
+        sortName:'declaretime',                //排序的数据字段名
         sortable: true,                     //是否启用排序
         sortOrder: "desc",                   //排序方式
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
@@ -51,11 +52,12 @@ function tableInit(tableUrl) {
         queryParams : function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
-                rows: params.limit,                         //页面大小
-                examinationnumber:'20115939',
+                examinationnumber:20115939,
+                rows: params.limit                        //页面大小
                 // page: (params.offset / params.limit) + 1,   //页码
-                sort: params.sort,      //排序列名
-                sortOrder: params.order //排位命令（desc，asc）
+                // pageSize:10,
+                // sort: params.sort,      //排序列名
+                // sortOrder: params.order //排位命令（desc，asc）
             };
             return temp;
         },
@@ -65,22 +67,27 @@ function tableInit(tableUrl) {
         }, {
             field: 'schoolname',
             title: '准考证号',
+            align: 'center',
             width:200
         }, {
             field: 'schoolname',
             title: '志愿编号',
+            align: 'center',
             width:200
         }, {
             field: 'SchoolInformationEO.schoolname',
             title: '学校名称',
+            align: 'center',
             width:300
         },{
             field: 'MajorInformationEO.majorname',
             title: '专业名称',
+            align: 'center',
             width:200
         },{
             field: 'declaretime',
             title: '申报时间',
+            align: 'center',
             width:200
         }
             // ,{
@@ -109,17 +116,74 @@ function tableInit(tableUrl) {
         },
         //客户端分页，需要指定到rows
         responseHandler: function (result) {
-            // console.log(result)
-            if (requestJson) {
-                return result.rows;
-            } else {
-                return {
-                    "rows": result.data.list,
-                    "total": result.data.count
-                };
-            }
-
+            console.log(result);
+                return result;
         }
     });
 }
 
+/**
+ *@desc 申报按钮初始化
+ *@date 2018/10/23 16:48:33
+ *@author zhangziteng
+ */
+function AddVolunteerModal() {
+    // $("#add-input-school").val('');
+    // $("#add-input-discipline").val('');
+    // $(".alert-warn").text("");
+    $.ajax({
+        url: AJAX_URL.schoolVolunteer,
+        type: 'post',
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            console.log(data);
+        }
+    })
+}
+/**
+ *@desc 修改按钮
+ *@date 2018/10/23 16:48:47
+ *@author zhangziteng
+ */
+function AlterVolunteerModal() {
+
+}
+/**
+ *@desc 批量删除
+ *@date 2018/10/23 16:49:17
+ *@author zhangziteng
+ */
+function DeleteVolunteer() {
+
+}
+
+/**
+ *@desc 申报提交数据按钮
+ *@date 2018/10/23 17:12:20
+ *@author zhangziteng
+ */
+$("#add-button-submit").click(function () {
+    var Obj = {
+        "examinationnumber":20115939,
+        "volunteernumber":$("#add-input-years").val(),
+        "schoolkey":1,
+        "majorkey":2
+    };
+    $.ajax({
+        url: AJAX_URL.addVolunteer,
+        type: requestJson ? 'get' : 'post',
+        data: Obj,
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            if (data.ok) {
+                $("#add-volunteer-modal").modal("hide");
+                poptip.alert(POP_TIP.examineeSuccess);
+                $('#volunteer-table-all').bootstrapTable("refresh");
+            } else {
+                poptip.alert(data.message);
+            }
+        }
+    })
+});

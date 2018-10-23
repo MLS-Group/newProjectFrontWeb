@@ -107,15 +107,25 @@ const AJAX_URL = {
      */
     recruitPlanData: requestJson ? '../../jsonDatas/recruitPlanData.json' : '',
     //修改密码 张子腾 2018-10-22
-    updatePassword: requestJson ? '../../jsonDatas/updatePassword.json' : requestUrl + '/api/generate/userinformation',
+    updatePassword: requestJson ? '../../jsonDatas/updatePassword.json' : requestUrl + 'api/generate/userinformation',
     //校验旧密码 张子腾 2018-10-22
-    checkPassword: requestJson ? '../../jsonDatas/checkPassword.json' : requestUrl + '/api/generate/userinformation/checkOldPassword',
+    checkPassword: requestJson ? '../../jsonDatas/checkPassword.json' : requestUrl + 'api/generate/userinformation/checkOldPassword',
     /**
      *@desc 考生报考志愿
      *@date 2018/10/22 14:30:40
      *@author zhangziteng
      */
-    applyVolunteer: requestJson ? '../../jsonDatas/applyVolunteer.json' : requestUrl + '/api/generate/examineevolunteerinformation/getExamineeVolunteerInformation',
+    applyVolunteer: requestJson ? '../../jsonDatas/applyVolunteer.json' : requestUrl + 'api/generate/examineevolunteerinformation/getExamineeVolunteerInformation',
+    addVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/ExamineeDeclareVolunteer',
+    // 获取学校和专业下拉菜单
+    schoolVolunteer:requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/getSchool',
+    majorVolunteer:requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/getSchoolsPublishedMajor',
+    /**
+     *@desc 录取光荣榜
+     *@date 2018/10/23 14:15:31
+     *@author zhangziteng
+     */
+    admissionResult:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/selectAdminssionBySchool',
    /*====================考生信息录入==============================*/
     //考生管理(分页查询) 刘志杰 2018-10-12
     exanineeSelect: requestJson ? '../../jsonDatas/enrolmentinfoInsert.json' : requestUrl + "api/generate/examineeinformation/queryByPage",
