@@ -51,11 +51,11 @@ function tableInit(tableUrl) {
         queryParams : function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
-                rows: params.limit,                         //页面大小
+                // rows: params.limit,                         //页面大小
                 examinationnumber:'20115939',
                 // page: (params.offset / params.limit) + 1,   //页码
-                sort: params.sort,      //排序列名
-                sortOrder: params.order //排位命令（desc，asc）
+                // sort: params.sort,      //排序列名
+                // sortOrder: params.order //排位命令（desc，asc）
             };
             return temp;
         },
@@ -110,14 +110,7 @@ function tableInit(tableUrl) {
         //客户端分页，需要指定到rows
         responseHandler: function (result) {
             // console.log(result)
-            if (requestJson) {
-                return result.rows;
-            } else {
-                return {
-                    "rows": result.data.list,
-                    "total": result.data.count
-                };
-            }
+            return result;
 
         }
     });

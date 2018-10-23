@@ -53,7 +53,13 @@ $(function() {
         }, {
             field: 'adminssionskey',
             align: 'center',
-            title: '序号'
+            title: '序号',
+            formatter: function (value, row, index) {
+                //通过formatter可以自定义列显示的内容
+                //value：当前field的值，即id
+                //row：当前行的数据
+                return index + 1;
+            }
         }, {
             field: 'schoolname',
             align: 'center',
