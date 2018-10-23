@@ -7,7 +7,7 @@ $(function() {
         url: AJAX_URL.signAnalysis,
         method: 'post',                    //请求方式（*）
         dataType: "json",
-        toolbar: '.main-search-group',              //工具按钮用哪个容器
+        // toolbar: '.main-search-group',              //工具按钮用哪个容器
         // toolbar:"#toolbar",
         // buttonsToolbar:'#search-btn-signanalysis',
         striped: false,                      //是否显示行间隔色

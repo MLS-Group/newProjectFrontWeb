@@ -1,0 +1,11 @@
+{
+  "examineeinformationEO": {
+    "email": "string",
+    "phonenumber": 0,
+    "quasiexaminationnumber": "78945678"
+  },
+  "userinformationEO": {
+    "useraccount": "string",
+    "userpassword": "string"
+  }
+}
