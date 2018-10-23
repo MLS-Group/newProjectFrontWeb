@@ -141,7 +141,7 @@ const AJAX_URL = {
     //准考证号验证 刘笑天 2018-10-19
     checkExaminationNumber: requestJson ? '../../jsonDatas/checkExaminationNumber.json' : requestUrl + '/api/generate/examineeinformation/checkExaminationNumber',
     //报考分析 刘笑天 2018-10-22
-    signAnalysis: requestJson ? '../../jsonDatas/signAnalysis.json' : '',
+    signAnalysis: requestJson ? '../../jsonDatas/signAnalysis.json' : requestUrl + '/api/generate/adminssionsplaninformation/queryLastAdminssionInfoByPage',
     //考生注册 刘笑天 2018-10-22
     userRegist: requestJson ? '../../jsonDatas/userRegist.json' : requestUrl + '/api/generate/examineeinformation/examineeRegist',
 
