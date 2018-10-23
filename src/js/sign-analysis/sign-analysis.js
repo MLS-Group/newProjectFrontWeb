@@ -67,7 +67,7 @@ $(function() {
             align: 'center',
             title: '计划招生人数'
         }, {
-            field: 'createtime',
+            field: 'adminssionsnumber',
             align: 'center',
             title: '实际招生人数'
         }],
@@ -93,6 +93,10 @@ $(function() {
         }
     });
 });
+/**
+ * 搜索按钮
+ * 刘笑天 20181023
+ */
 $("#search-btn-signanalysis").click(function () {
     var opt = {
         url: AJAX_URL.signAnalysis,
