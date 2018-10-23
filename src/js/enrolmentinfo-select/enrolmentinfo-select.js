@@ -4,8 +4,10 @@
  *  2018-10-20
  */
 
+var SELECT_ENROLMENTINFO_URL = requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/queryAdminssionInfoByPage';//招生信息分页+模糊查询接口
+
 $(function () {
-    tableInit(AJAX_URL.enrolmentinfoSelectData)
+    tableInit(SELECT_ENROLMENTINFO_URL,'')
 })
 
 
@@ -15,12 +17,12 @@ $(function () {
  * @Date 2018-10-22
  * @param tableUrl 表格获取数据的url地址
  */
-function tableInit(tableUrl) {
-    // $('#show-table-enrolmentinfo').bootstrapTable('destroy');
+function tableInit(tableUrl,cond) {
     $('#show-table-enrolmentinfo').bootstrapTable({
         url: tableUrl,
         method: requestJson ? 'get' : 'post',                      //请求方式（*）
         dataType: "json",
+        contentType: "application/json;charset=utf-8",
         //toolbar: '#toolbar',              //工具按钮用哪个容器
         striped: false,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -45,17 +47,30 @@ function tableInit(tableUrl) {
         //得到查询的参数
         queryParams: function (params) {
             console.log($("#select-input-school").val())
-            //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-            var temp = {
-                rows: params.limit,                         //页面大小
-                page: (params.offset / params.limit) + 1,   //页码
-                sort: params.sort,      //排序列名
-                sortOrder: params.order, //排位命令（desc，asc）
-                schoolname:$("#select-input-school").val(),
-                majorname: $("#select-input-major").val(),
-                provincename: $("#select-input-province").val()
-            };
-            return temp;
+            var temp;
+            if (cond == 'sign') {
+                //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                temp = {
+                    rows: params.limit,                         //页面大小
+                    page: (params.offset / params.limit) + 1,   //页码
+                    sort: params.sort,      //排序列名
+                    sortOrder: params.order, //排位命令（desc，asc）
+                    pageSize:10,
+                    schoolname:$("#select-input-school").val(),
+                    majorname: $("#select-input-major").val(),
+                    provincename: $("#select-input-province").val()
+                };
+                return JSON.stringify(temp);
+            } else {
+                temp = {
+                    rows: params.limit,                         //页面大小
+                    page: (params.offset / params.limit) + 1,   //页码
+                    pageSize:10,
+                    sort: params.sort,      //排序列名
+                    sortOrder: params.order, //排位命令（desc，asc）
+                };
+                return JSON.stringify(temp);
+            }
         },
         columns: [{
             checkbox: true,
@@ -88,7 +103,7 @@ function tableInit(tableUrl) {
             title: '发布时间'
         }],
         onLoadSuccess: function (e) {
-            console.log(e)
+            // console.log(e)
         },
         onLoadError: function () {
             console.log("数据加载失败！");
@@ -117,8 +132,9 @@ function tableInit(tableUrl) {
 
 //学校，专业，省份 查询事件
 $("#search-button").click(function () {
-
-    tableInit(AJAX_URL.enrolmentinfoSelectData);
+    console.log(1111)
+    $('#show-table-enrolmentinfo').bootstrapTable('destroy');
+    tableInit(SELECT_ENROLMENTINFO_URL,'sign');
 
 // var selectObj = {  //查询 选择的信息
 //     "schoolname": $("#select-input-school").val(),

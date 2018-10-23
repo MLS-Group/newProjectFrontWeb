@@ -52,8 +52,8 @@ function tableInit(tableUrl) {
         queryParams : function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
-                examinationnumber:20115939,
-                rows: params.limit                        //页面大小
+                // rows: params.limit,                         //页面大小
+                examinationnumber:'20115939',
                 // page: (params.offset / params.limit) + 1,   //页码
                 // pageSize:10,
                 // sort: params.sort,      //排序列名
@@ -82,7 +82,6 @@ function tableInit(tableUrl) {
         },{
             field: 'MajorInformationEO.majorname',
             title: '专业名称',
-            align: 'center',
             width:200
         },{
             field: 'declaretime',
