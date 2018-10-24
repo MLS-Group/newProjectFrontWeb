@@ -117,9 +117,13 @@ const AJAX_URL = {
      */
     applyVolunteer: requestJson ? '../../jsonDatas/applyVolunteer.json' : requestUrl + 'api/generate/examineevolunteerinformation/getExamineeVolunteerInformation',
     addVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/ExamineeDeclareVolunteer',
+    //学校验重
+    addCheckVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/checkExamineeSchool',
     // 获取学校和专业下拉菜单
     schoolVolunteer:requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/getSchool',
     majorVolunteer:requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/getSchoolsPublishedMajor',
+    // 批量删除
+    deleteVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/ExamineeBatchDeleteVolunteer',
     /**
      *@desc 录取光荣榜
      *@date 2018/10/23 14:15:31

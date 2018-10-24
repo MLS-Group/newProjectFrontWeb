@@ -42,7 +42,7 @@
     <hr>
     <!--2018年10月10日11:15:31 表格新增修改删除按钮-->
     <div class="btn-left">
-        <button type="button" class="btn btn-primary" onclick="AddVolunteerModal()" data-target="#add-volunteer-modal" data-toggle="modal" style="padding: 6px 20px;">申报</button>
+        <button type="button" class="btn btn-primary" onclick="AddVolunteerModal('add')" data-target="#add-volunteer-modal" data-toggle="modal" style="padding: 6px 20px;">申报</button>
         <button type="button" class="btn btn-success" onclick="AlterVolunteerModal()" style="padding: 6px 20px;">修改</button>
         <button type="button" class="btn btn-danger" onclick="DeleteVolunteer()" style="padding: 6px 20px;">批量删除</button>
     </div>
@@ -71,6 +71,7 @@
                                 <select class="from-controller" id="add-input-school" style="width: 200px;">
                                 <!--<input type="text" class="form-control need-check not-null" style="width: 200px;" regex="account" maxlength="30" id="add-input-school" placeholder="请输入准考证号">-->
                                 <!--<span class="alert-warn" style="margin: 0 30px 0 130px;"></span>-->
+                                </select>
                             </div>
                         </div>
                         <br>
@@ -80,6 +81,7 @@
                                 <select class="from-controller" id="add-input-discipline" style="width: 200px;">
                                 <!--<input type="text" class="form-control need-check not-null" style="width: 200px;" regex="account" maxlength="30" id="add-input-discipline" placeholder="请输入账户名">-->
                                 <!--<span class="alert-warn" style="margin: 0 30px 0 130px;"></span>-->
+                                </select>
                             </div>
                         </div>
                         <br>
@@ -87,13 +89,14 @@
                             <div class="col-sm-12 form-inline">
                                 <label for="add-input-years" class="col-sm-4 control-label">志愿编号：</label>
                                 <select class="from-controller" id="add-input-years" style="width: 200px;">
-                                    <option selected>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
+                                    <option selected>请选择志愿编号</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
                                 </select>
                             </div>
                         </div>
