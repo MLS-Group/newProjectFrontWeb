@@ -156,12 +156,13 @@ $("#login-button-examineelogin").click(function () {
         },
         dataType: "json",
         // contentType: "application/json;charset=utf-8",
-        success:function (data) {
-            if (data.ok) {
+        success:function (result) {
+            if (result.ok) {
                 // alert(data.message);
+                sessionStorage.setItem("userInfo",result.data);//用户信息存入session
                 window.location.href = '../default/default.html';
             } else {
-                alert(data.message);
+                alert(result.message);
             }
         }
     });
