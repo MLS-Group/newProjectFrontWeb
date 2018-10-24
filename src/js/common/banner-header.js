@@ -74,6 +74,7 @@ $("#update-input-oldpassword").blur(function () {
 $("#logout-li-userlogout").click(function () {
 /*    //得到session
     sessionStorage.getItem("userInfo");*/
+    console.log(sessionStorage.getItem("userInfo"));
     //删除item
     sessionStorage.removeItem("userInfo");
     //清除数据-----删除所有同源的本地存储的localStorage数据
