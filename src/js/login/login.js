@@ -159,7 +159,7 @@ $("#login-button-examineelogin").click(function () {
         success:function (result) {
             if (result.ok) {
                 // alert(data.message);
-                sessionStorage.setItem("userInfo",result.data);//用户信息存入session
+                sessionStorage.setItem("userInfo",result    );//用户信息存入session
                 window.location.href = '../default/default.html';
             } else {
                 alert(result.message);

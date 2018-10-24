@@ -67,3 +67,24 @@ $("#update-input-oldpassword").blur(function () {
         }
     });
 });
+/**
+ * 退出登录
+ * 刘笑天 20181024
+ */
+$("#logout-li-userlogout").click(function () {
+/*    //得到session
+    sessionStorage.getItem("userInfo");*/
+    //删除item
+    sessionStorage.removeItem("userInfo");
+    //清除数据-----删除所有同源的本地存储的localStorage数据
+    localStorage.clear();
+    //清除数据-----只清空当前会话存储的数据
+    sessionStorage.clear();
+    if (sessionStorage.length == 0) {
+        window.location.href = '../login/login.html';
+    } else {
+        alert("注销失败");
+    }
+
+
+});
