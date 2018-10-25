@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "total": "30",
+  "rows": [
+    "declaretime": 1539090406000,
+    "SchoolInformationEO": {
+      "schoolname": "大软"
+    },
+    "MajorInformationEO": {
+      "majorname": "计算机科学与技术"
+    }
+  ]
+}

@@ -137,94 +137,94 @@ codeResult;
         }
         return code;
     }
+})(jQuery);
 
-    /**
-     * 登录按钮
-     * 刘笑天 2018-10-15
-     * 最后修改 刘笑天 2018-10-19
-     */
-    $("#login_button_examineelogin").click(function () {
-        var username = $("#username").val();
-        var password = $("#password").val();
+/**
+ * 登录按钮
+ * 刘笑天 2018-10-15
+ * 最后修改 刘笑天 2018-10-19
+ */
+$("#login-button-examineelogin").click(function () {
+    var username = $("#login-input-username").val();
+    var password = $("#login-input-password").val();
+    $.ajax({
+        url: AJAX_URL.examineeLogin,
+        type: requestJson ? 'get' : 'post',
+        data: {
+            "userAccount": username,
+            "userPassword": password
+        },
+        dataType: "json",
+        // contentType: "application/json;charset=utf-8",
+        success:function (result) {
+            if (result.ok) {
+                // alert(data.message);
+                sessionStorage.setItem("userInfo",result.data);//用户信息存入session
+                window.location.href = '../default/default.html';
+            } else {
+                alert(result.message);
+            }
+        }
+    });
+});
+/**
+ * 注册模态框 验证准考证号
+ * 若验证成功 下面的文本框才可以输入
+ * 刘笑天 2018-10-19
+ */
+$("#regist-input-examinationnumber").blur(function () {
+    var quasiExaminationNumber = $("#regist-input-examinationnumber").val();
+    if (quasiExaminationNumber != "") {
         $.ajax({
-            url: AJAX_URL.examineeLogin,
-            type: requestJson ? 'get' : 'post',
+            url: AJAX_URL.checkExaminationNumber,
+            type: "post",
             data: {
-                "userAccount": username,
-                "userPassword": password
+                "quasiExaminationNumber": quasiExaminationNumber
             },
             dataType: "json",
-            // contentType: "application/json;charset=utf-8",
-            success:function (data) {
+            success: function (data) {
                 if (data.ok) {
-                    alert(data.message)
-                    window.location.href = '../default/default.html';
+                    alert(data.message);
+                    $("#regist-input-username").attr("disabled",false);
+                    $("#regist-input-password").attr("disabled",false);
+                    $("#regist-input-email").attr("disabled",false);
+                    $("#regist-input-phonenumber").attr("disabled",false);
+                    $("#regist-input-verfication").attr("disabled",false);
                 } else {
                     alert(data.message);
                 }
             }
         });
-    });
-    /**
-     * 注册模态框 验证准考证号
-     * 若验证成功 下面的文本框才可以输入
-     * 刘笑天 2018-10-19
-     */
-    $("#regist-input-examinationnumber").blur(function () {
-        var quasiExaminationNumber = $("#regist-input-examinationnumber").val();
-        if (quasiExaminationNumber != "") {
-            $.ajax({
-                url: AJAX_URL.checkExaminationNumber,
-                type: "post",
-                data: {
-                    "quasiExaminationNumber": quasiExaminationNumber
-                },
-                dataType: "json",
-                success: function (data) {
-                    if (data.ok) {
-                        alert(data.message);
-                        $("#regist-input-username").attr("disabled",false);
-                        $("#regist-input-password").attr("disabled",false);
-                        $("#regist-input-email").attr("disabled",false);
-                        $("#regist-input-phonenumber").attr("disabled",false);
-                        $("#regist-input-verfication").attr("disabled",false);
-                    } else {
-                        alert(data.message);
-                    }
-                }
-            });
-        }else {}
-    });
-    /**
-     * 注册模态框 注册按钮
-     */
-    $("#regist-button-userreg").click(function() {
-        var quasiExaminationNumber = $("#regist-input-examinationnumber").val();
-        var userAccount = $("#regist-input-username").val();
-        var userPassword = $("#regist-input-password").val();
-        var email = $("#regist-input-email").val();
-        var phoneNumber = $("#regist-input-phonenumber").val();
-        $.ajax({
-            url: AJAX_URL.userRegist,
-            type: 'post',
-            data: JSON.stringify({
+    }else {};
+});
+/**
+ * 注册模态框 注册按钮
+ */
+$("#regist-button-userreg").click(function() {
+    var quasiExaminationNumber = $("#regist-input-examinationnumber").val();
+    var userAccount = $("#regist-input-username").val();
+    var userPassword = $("#regist-input-password").val();
+    var email = $("#regist-input-email").val();
+    var phoneNumber = $("#regist-input-phonenumber").val();
+    $.ajax({
+        url: AJAX_URL.userRegist,
+        type: 'post',
+        data: JSON.stringify({
 
-                "examineeinformationEO": {
-                    "email": email,
-                    "phonenumber": phoneNumber,
-                    "quasiexaminationnumber": quasiExaminationNumber
-                },
-                "userinformationEO": {
-                    "useraccount": userAccount,
-                    "userpassword": userPassword
-                }
-            }),
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            success: function (data) {
-                alert(data.message);
+            "examineeinformationEO": {
+                "email": email,
+                "phonenumber": phoneNumber,
+                "quasiexaminationnumber": quasiExaminationNumber
+            },
+            "userinformationEO": {
+                "useraccount": userAccount,
+                "userpassword": userPassword
             }
-        });
+        }),
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            alert(data.message);
+        }
     });
-
-})(jQuery);
+});

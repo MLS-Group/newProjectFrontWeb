@@ -10,7 +10,7 @@
  *@author zhangziteng
  */
 $(function () {
-    tableInit();
+    tableInit(AJAX_URL.applyVolunteer);
 });
 
 /**
@@ -23,13 +23,14 @@ function tableInit(tableUrl) {
         url: tableUrl,
         method: requestJson ? 'get' : 'post',                      //请求方式（*）
         dataType: "json",
+        contentType: "application/json;charset=utf-8",
         //toolbar: '#toolbar',              //工具按钮用哪个容器
-        striped: true,                      //是否显示行间隔色
+        striped: false,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         pagination: false,                   //是否显示分页（*）
         // paginationHAlign:'center',       //分页水平位置
         paginationDetailHAlign:"right",      //分页详细信息位置
-        sortName:'BirthDate',                //排序的数据字段名
+        sortName:'declaretime',                //排序的数据字段名
         sortable: true,                     //是否启用排序
         sortOrder: "desc",                   //排序方式
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
@@ -48,38 +49,46 @@ function tableInit(tableUrl) {
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
         //得到查询的参数
-        queryParams : function (params) {
+        queryParams : function () {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
-                rows: params.limit,                         //页面大小
-                page: (params.offset / params.limit) + 1,   //页码
-                sort: params.sort,      //排序列名
-                sortOrder: params.order //排位命令（desc，asc）
+                // rows: params.limit,                         //页面大小
+                examinationnumber:"20115939",
+                schoolname:$("#school-input-search").val(),
+                majorname:$("#discipline-input-search").val()
+                // page: (params.offset / params.limit) + 1,   //页码
+                // pageSize:10,
+                // sort: params.sort,      //排序列名
+                // sortOrder: params.order //排位命令（desc，asc）
             };
-            return temp;
+            return JSON.stringify(temp);
         },
         columns: [{
             checkbox: true,
             visible: true                  //是否显示复选框
         }, {
-            field: 'majorkey',
+            field: 'examinationnumber',
             title: '准考证号',
+            align: 'center',
             width:200
         }, {
-            field: 'majorname',
+            field: 'volunteernumber',
             title: '志愿编号',
+            align: 'center',
             width:200
         }, {
-            field: 'majorname',
+            field: 'SchoolInformationEO.schoolname',
             title: '学校名称',
+            align: 'center',
             width:300
         },{
-            field: 'majorname',
+            field: 'MajorInformationEO.majorname',
             title: '专业名称',
             width:200
         },{
-            field: 'createtime',
+            field: 'declaretime',
             title: '申报时间',
+            align: 'center',
             width:200
         }
             // ,{
@@ -108,17 +117,213 @@ function tableInit(tableUrl) {
         },
         //客户端分页，需要指定到rows
         responseHandler: function (result) {
-            // console.log(result)
-            if (requestJson) {
-                return result.rows;
-            } else {
-                return {
-                    "rows": result.data.list,
-                    "total": result.data.count
-                };
-            }
-
+            console.log(result);
+                return result;
         }
     });
 }
 
+/**
+ *@desc 搜索模糊查询
+ *@date 2018/10/24 14:17:37
+ *@author zhangziteng
+ */
+function SearchVolunteer() {
+    $('#volunteer-table-all').bootstrapTable("destroy");
+    tableInit(AJAX_URL.applyVolunteer);
+}
+
+
+/**
+ *@desc 申报按钮初始化
+ *@date 2018/10/23 16:48:33
+ *@author zhangziteng
+ */
+function AddVolunteerModal(item) {
+    // $("#add-input-school").val('');
+    // $("#add-input-discipline").val('');
+    // $(".alert-warn").text("");
+    $("#add-input-school").empty();
+    $("#add-input-discipline").empty();
+    // 获取学校
+    $.ajax({
+        url: AJAX_URL.schoolVolunteer,
+        type: 'post',
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        // data:JSON.stringify({}),
+        success: function (data) {
+            // var SCH_ARR;
+            // SCH_ARR = data.data.list;
+            // console.log(data);
+            let checkboxTable;
+            if (item !== 'update') {
+                $.each(data.data,function (i,tmp) {
+                    $("#add-input-school").append("<option value='' style=\"display: none\">请选择学校</option>");
+                    $("#add-input-discipline").append("<option value='' style=\"display: none\">请选择专业</option>");
+                    $("#add-input-school").append("<option value='" + tmp.schoolkey + "'>" + tmp.SchoolInformationEO.schoolname + "</option>");
+                });
+            } else {
+                checkboxTable = $("#volunteer-table-all").bootstrapTable('getSelections');
+            }
+            $.each(data.data,function (i,tmp) {
+                // console.log(tmp);
+                console.log(checkboxTable);
+                if (checkboxTable[0].SchoolInformationEO.schoolname == tmp.SchoolInformationEO.schoolname) {
+                    $("#add-input-school").append("<option value='" + tmp.schoolkey + "' selected>" + tmp.SchoolInformationEO.schoolname + "</option>");
+                    $("#add-input-discipline").append("<option value='" + checkboxTable[0].MajorInformationEO.majorname + "'>" + checkboxTable[0].MajorInformationEO.majorname + "</option>");
+                } else {
+                    $("#add-input-school").append("<option value='" + tmp.schoolkey + "'>" + tmp.SchoolInformationEO.schoolname + "</option>");
+                }
+            })
+        }
+    });
+}
+
+/**
+ *@desc 刷新专业列表
+ *@date 2018/10/24 11:16:06
+ *@author zhangziteng
+ */
+$("#add-input-school").change(function () {
+    // 获取专业,验重申报学校
+    $("#add-input-discipline").empty();
+    $("#add-input-discipline").append("<option value='' style=\"display: none\">请选择专业</option>");
+    $.ajax({
+        url: AJAX_URL.addCheckVolunteer,
+        type: 'post',
+        dataType: "json",
+        // contentType: "application/json;charset=utf-8",
+        data: {
+            "schoolKey":$("#add-input-school").val(),
+            "examinationNumber":20115939
+        },
+        success: function (data) {
+            // var SCH_ARR;
+            // SCH_ARR = data.data.list;
+            console.log(data);
+            poptip.alert(data.message);
+        }
+    });
+    $.ajax({
+        url: AJAX_URL.majorVolunteer,
+        type: 'post',
+        dataType: "json",
+        // contentType: "application/json;charset=utf-8",
+        data:{"schoolKey":$("#add-input-school").val()},
+        success: function (data) {
+            // var SCH_ARR;
+            // SCH_ARR = data.data.list;
+            console.log(data);
+            $.each(data.data,function (i,tmp) {
+                console.log(tmp);
+                if (tmp !== '') {
+                    $("#add-input-discipline").append("<option value='" + tmp.majorkey + "'>" + tmp.majorname + "</option>");
+                } else {
+                    $("#add-input-discipline").append("<option value='' style=\"display: none\">无专业信息</option>");
+                }
+            })
+        }
+    })
+});
+/**
+ *@desc 修改按钮
+ *@date 2018/10/23 16:48:47
+ *@author zhangziteng
+ */
+function AlterVolunteerModal() {
+    let checkboxTable = $("#volunteer-table-all").bootstrapTable('getSelections');
+    if (checkboxTable.length <= 0) {
+        poptip.alert(POP_TIP.choiceOne)
+        return 0;
+    } else if (checkboxTable.length > 1) {
+        poptip.alert(POP_TIP.selOnlyone);
+        return;
+    } else {
+        AddVolunteerModal("update");
+        $("#plan-modal-title").html('<h3>修改志愿</h3>');
+        $("#add-volunteer-modal").modal("show");
+    }
+}
+/**
+ *@desc 批量删除
+ *@date 2018/10/23 16:49:17
+ *@author zhangziteng
+ */
+function DeleteVolunteer() {
+    let checkboxTable = $("#volunteer-table-all").bootstrapTable('getSelections');
+    if (checkboxTable.length <= 0) {
+        poptip.alert(POP_TIP.choiceOne)
+        return 0;
+    }
+    // delete checkboxTable[0].checkbox;
+    console.log(checkboxTable[0].volunteerkey);
+    var list = [];
+    for (var i = 0; i < checkboxTable.length; i++) {
+        list.push({
+            "volunteerkey": checkboxTable[i].volunteerkey
+        });
+    }
+    let dataObj = {
+        "list": list
+        // "list":[
+        //     {
+        //         "volunteerkey": checkboxTable[0].volunteerkey
+        //     }
+        //     ]
+    };
+    console.log(dataObj);
+    poptip.confirm({
+        content: POP_TIP.confirm,
+        yes: function () {
+            console.log('confirm-yes');
+            //删除操作
+            $.ajax({
+                url: AJAX_URL.deleteVolunteer,
+                type: requestJson ? 'get' : 'post',
+                data: JSON.stringify(dataObj),
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    poptip.alert(POP_TIP.deleteSuccess);
+                    console.log(data);
+                    $('#volunteer-table-all').bootstrapTable("refresh");
+                }
+            });
+            poptip.close();
+        },
+        cancel: function () {
+            poptip.close();
+        }
+    });
+}
+
+/**
+ *@desc 申报提交数据按钮
+ *@date 2018/10/23 17:12:20
+ *@author zhangziteng
+ */
+$("#add-button-submit").click(function () {
+    var Obj = {
+        "examinationnumber":20115939,
+        "volunteernumber":$("#add-input-years").val(),
+        "schoolkey":$("#add-input-school").val(),
+        "majorkey":$("#add-input-discipline").val()
+    };
+    $.ajax({
+        url: AJAX_URL.addVolunteer,
+        type: requestJson ? 'get' : 'post',
+        data: Obj,
+        dataType: "json",
+        // contentType: "application/json;charset=utf-8",
+        success: function (data) {
+            if (data.ok) {
+                $("#add-volunteer-modal").modal("hide");
+                poptip.alert(POP_TIP.addSuccess);
+                $('#volunteer-table-all').bootstrapTable("refresh");
+            } else {
+                poptip.alert(data.message);
+            }
+        }
+    })
+});
