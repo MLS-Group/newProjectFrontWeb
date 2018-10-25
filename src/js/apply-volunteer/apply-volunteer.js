@@ -51,9 +51,10 @@ function tableInit(tableUrl) {
         //得到查询的参数
         queryParams : function () {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            var data1 = JSON.parse(sessionStorage.getItem('userInfo'));
             var temp = {
                 // rows: params.limit,                         //页面大小
-                examinationnumber:"20115939",
+                examinationnumber:data1.quasiExaminationNumber,
                 schoolname:$("#school-input-search").val(),
                 majorname:$("#discipline-input-search").val()
                 // page: (params.offset / params.limit) + 1,   //页码
@@ -75,7 +76,13 @@ function tableInit(tableUrl) {
             field: 'volunteernumber',
             title: '志愿编号',
             align: 'center',
-            width:200
+            width:200,
+            formatter:function(value,row) {
+                console.log(value);
+                // console.log(row);
+                let a = '<input style="width: 40px; text-align: center;" maxlength="1" id="volunteernumber-input-update" class="from-controller volunteer-number" value="' + value + '"/>';
+                return a;
+            }
         }, {
             field: 'SchoolInformationEO.schoolname',
             title: '学校名称',
@@ -133,6 +140,15 @@ function SearchVolunteer() {
     tableInit(AJAX_URL.applyVolunteer);
 }
 
+/**
+ *@desc 重置按钮
+ *@date 2018/10/25 17:11:26
+ *@author zhangziteng
+ */
+function ResetVolunteerInput() {
+    $("#school-input-search").val('');
+    $("#discipline-input-search").val('');
+}
 
 /**
  *@desc 申报按钮初始化
@@ -143,6 +159,7 @@ function AddVolunteerModal(item) {
     // $("#add-input-school").val('');
     // $("#add-input-discipline").val('');
     // $(".alert-warn").text("");
+    $("#plan-modal-title").html('<h3>申报志愿</h3>');
     $("#add-input-school").empty();
     $("#add-input-discipline").empty();
     // 获取学校
@@ -189,6 +206,7 @@ $("#add-input-school").change(function () {
     // 获取专业,验重申报学校
     $("#add-input-discipline").empty();
     $("#add-input-discipline").append("<option value='' style=\"display: none\">请选择专业</option>");
+    var data1 = JSON.parse(sessionStorage.getItem('userInfo'));
     $.ajax({
         url: AJAX_URL.addCheckVolunteer,
         type: 'post',
@@ -196,7 +214,7 @@ $("#add-input-school").change(function () {
         // contentType: "application/json;charset=utf-8",
         data: {
             "schoolKey":$("#add-input-school").val(),
-            "examinationNumber":20115939
+            "examinationNumber":data1.quasiExaminationNumber
         },
         success: function (data) {
             // var SCH_ARR;
@@ -304,26 +322,89 @@ function DeleteVolunteer() {
  *@author zhangziteng
  */
 $("#add-button-submit").click(function () {
+    var data1 = JSON.parse(sessionStorage.getItem('userInfo'));
+    console.log(data1.quasiExaminationNumber);
     var Obj = {
-        "examinationnumber":20115939,
+        "examinationnumber":data1.quasiExaminationNumber,
         "volunteernumber":$("#add-input-years").val(),
         "schoolkey":$("#add-input-school").val(),
         "majorkey":$("#add-input-discipline").val()
     };
+    if ($("#plan-modal-title").text() == "申报志愿") {
+        $.ajax({
+            url: AJAX_URL.addVolunteer,
+            type: requestJson ? 'get' : 'post',
+            data: Obj,
+            dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data.ok) {
+                    $("#add-volunteer-modal").modal("hide");
+                    poptip.alert(POP_TIP.addSuccess);
+                    $('#volunteer-table-all').bootstrapTable("refresh");
+                } else {
+                    poptip.alert(data.message);
+                }
+            }
+        })
+    } else if ($("#plan-modal-title").text() == "修改志愿")  {
+        let checkboxTable = $("#volunteer-table-all").bootstrapTable('getSelections');
+        $.ajax({
+            url: AJAX_URL.updateVolunteer,
+            type: requestJson ? 'get' : 'post',
+            data: JSON.stringify({
+                "schoolkey":$("#add-input-school").val(),
+                "majorkey":$("#add-input-discipline").val(),
+                "volunteerkey":checkboxTable[0].volunteerkey
+            }),
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data.ok) {
+                    $("#add-volunteer-modal").modal("hide");
+                    poptip.alert(POP_TIP.updateSuccess);
+                    $('#volunteer-table-all').bootstrapTable("refresh");
+                } else {
+                    poptip.alert(data.message);
+                }
+            }
+        })
+    } else {
+        return;
+    }
+});
+
+/**
+ *@desc 修改志愿编号
+ *@date 2018/10/25 10:47:43
+ *@author zhangziteng
+ */
+function UpdateVolunteerNumber() {
+    let checkboxTable = $("#volunteer-table-all").bootstrapTable('getData');
+    var volunteers = [];
+    for (var i = 0; i < checkboxTable.length; i++) {
+        var idnumber = $(".volunteer-number").eq(i).val();
+        volunteers.push({
+        "volunteerkey": checkboxTable[i].volunteerkey,
+        "volunteernumber":idnumber
+        });
+    }
+    let dataObj = {
+        "volunteers": volunteers
+    };
     $.ajax({
-        url: AJAX_URL.addVolunteer,
+        url: AJAX_URL. updateVolunteerNumber,
         type: requestJson ? 'get' : 'post',
-        data: Obj,
+        data: JSON.stringify(dataObj),
         dataType: "json",
-        // contentType: "application/json;charset=utf-8",
+        contentType: "application/json;charset=utf-8",
         success: function (data) {
             if (data.ok) {
-                $("#add-volunteer-modal").modal("hide");
-                poptip.alert(POP_TIP.addSuccess);
+                poptip.alert(POP_TIP.updateSuccess);
                 $('#volunteer-table-all').bootstrapTable("refresh");
             } else {
                 poptip.alert(data.message);
             }
         }
     })
-});
+}

@@ -28,6 +28,8 @@ const POP_TIP = {
     netFail: '网络连接失败',//by qitian
     dataLoadfail: '数据加载失败',//by qitian
     dataLoadsuccess: '数据加载成功',//by qitian
+    checkPasswordsuccess:'旧密码正确',//by zhangziteng
+    checkPasswordfail:'旧密码错误',//by zhangziteng
     selectOne: '请至少选择一条数据',//by qitian
     selOnlyone: '只能选择一条数据',//by qitian
     fileFormatFail: '您上传的文件格式不正确！',//by qitian
@@ -115,10 +117,13 @@ const AJAX_URL = {
      *@date 2018/10/22 14:30:40
      *@author zhangziteng
      */
-    applyVolunteer: requestJson ? '../../jsonDatas/applyVolunteer.json' : requestUrl + 'api/generate/examineevolunteerinformation/getExamineeVolunteerInformation',
+    applyVolunteer: requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/getExamineeVolunteerInformation',
     addVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/ExamineeDeclareVolunteer',
+    //修改志愿
+    updateVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation',
     //学校验重
     addCheckVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/checkExamineeSchool',
+    updateVolunteerNumber:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/ExamineeUpdateVolunteer',
     // 获取学校和专业下拉菜单
     schoolVolunteer:requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/getSchool',
     majorVolunteer:requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/getSchoolsPublishedMajor',

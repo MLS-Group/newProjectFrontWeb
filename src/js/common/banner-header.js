@@ -60,9 +60,9 @@ $("#update-input-oldpassword").blur(function () {
             if (data.ok) {
                 // alert(data.message);
                 // window.location.href = '../default/default.html';
-                poptip.alert(POP_TIP.dataLoadsuccess);
+                poptip.alert(POP_TIP.checkPasswordsuccess);
             } else {
-                poptip.alert(POP_TIP.dataLoadfail);
+                poptip.alert(POP_TIP.checkPasswordfail);
             }
         }
     });
