@@ -256,14 +256,21 @@ function DeleteVolunteer() {
         poptip.alert(POP_TIP.choiceOne)
         return 0;
     }
-    delete checkboxTable[0].checkbox;
+    // delete checkboxTable[0].checkbox;
     console.log(checkboxTable[0].volunteerkey);
+    var list = [];
+    for (var i = 0; i < checkboxTable.length; i++) {
+        list.push({
+            "volunteerkey": checkboxTable[i].volunteerkey
+        });
+    }
     let dataObj = {
-        "list":[
-            {
-                "volunteerkey": checkboxTable[0].volunteerkey
-            }
-            ]
+        "list": list
+        // "list":[
+        //     {
+        //         "volunteerkey": checkboxTable[0].volunteerkey
+        //     }
+        //     ]
     };
     console.log(dataObj);
     poptip.confirm({
