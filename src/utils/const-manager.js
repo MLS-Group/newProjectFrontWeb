@@ -108,8 +108,8 @@ const AJAX_URL = {
     recruitPlanData: requestJson ? '../../jsonDatas/recruitPlanData.json' : '',
 
    /*====================考生信息录入==============================*/
-    //考生管理(分页查询) 刘志杰 2018-10-12
-    exanineeSelect: requestJson ? '../../jsonDatas/enrolmentinfoInsert.json' : requestUrl + "api/generate/examineeinformation/queryByPage",
+    //考生管理(查询) 刘志杰 2018-10-12
+    exanineeSelect: requestJson ? '../../jsonDatas/enrolmentinfoInsert.json' : requestUrl + "api/generate/examineeinformation/selectExamineeinfomation",
     //考生管理(添加) 刘志杰 2018-10-12
     exanineeInsert: requestJson ? '' : requestUrl + "api/generate/examineeinformation/informationEntry",
 
