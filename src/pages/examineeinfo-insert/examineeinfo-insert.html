@@ -24,13 +24,14 @@
             <div class="row">
                 <div class="form-horizontal" id="open-dialog">
                     <div>
-                        <div class="h2">登录信息</div>
+                        <div class="h3">登录信息</span>
+                        </div>
                         <!--用户信息主键-->
                         <input type="hidden"  id="logininfo-input-userkey" >
                         <div class="form-group">
                             <label for="logininfo-input-account"
                                    class="col-sm-3 control-label ">登录账户： </label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control "
                                        id="logininfo-input-account" disabled>
                                 <span class="alert-warn"></span>
@@ -39,7 +40,7 @@
                         <div class="form-group">
                             <label for="logininfo-input-password"
                                    class="col-sm-3 control-label ">密码： </label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control"
                                        maxlength="10" id="logininfo-input-password"
                                        placeholder="请输入密码">
@@ -49,13 +50,13 @@
                     </div>
                     <hr>
                     <div>
-                        <div class="h2">基本信息</div>
+                        <div class="h3">基本信息</div>
                         <!--考生信息主键-->
                         <input type="hidden"  id="basicinfo-input-examineekey">
                         <div class="form-group">
                             <label for="basicinfo-input-quasiexaminationnumber"
                                    class="col-sm-3 control-label ">准考证号 </label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control " id="basicinfo-input-quasiexaminationnumber"
                                 disabled>
                                 <span class="alert-warn"></span>
@@ -64,7 +65,7 @@
                         <div class="form-group">
                             <label for="basicinfo-input-realname"
                                    class="col-sm-3 control-label required">真实姓名 </label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        maxlength="10" id="basicinfo-input-realname"
                                        placeholder="请输入真实姓名">
@@ -73,7 +74,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label required">性别 </label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <div class="radio">
                                     <label class="radio-inline">
                                         <input type="radio" class="need-check not-null " name="basicinfo-radio-sex"
@@ -89,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label for="basicinfo-input-age" class="col-sm-3 control-label required">年龄</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        regex="number"
                                        maxlength="2" id="basicinfo-input-age"
@@ -100,7 +101,7 @@
                         <div class="form-group">
                             <label for="basicinfo-input-idcardnumber"
                                    class="col-sm-3 control-label required">身份证号</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        regex="idNumber3" maxlength="18" id="basicinfo-input-idcardnumber"
                                        placeholder="请输入身份证号">
@@ -110,7 +111,7 @@
                         <div class="form-group">
                             <label for="basicinfo-input-registeredresidence"
                                    class="col-sm-3 control-label required">户口所在地</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        maxlength="50" id="basicinfo-input-registeredresidence"
                                        placeholder="请输入户口所在地">
@@ -119,7 +120,7 @@
                         </div>
                         <div class="form-group">
                             <label for="basicinfo-input-politicaloutlook" class="col-sm-3 control-label required">政治面貌</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        maxlength="15" id="basicinfo-input-politicaloutlook"
                                        placeholder="请输入政治面貌">
@@ -129,7 +130,7 @@
                         <div class="form-group">
                             <label for="basicinfo-input-nativeplace"
                                    class="col-sm-3 control-label required">籍贯</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        maxlength="20" id="basicinfo-input-nativeplace"
                                        placeholder="请输入籍贯">
@@ -138,7 +139,7 @@
                         </div>
                         <div class="form-group">
                             <label for="basicinfo-input-email" class="col-sm-3 control-label required">邮箱地址</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        regex="email"
                                        maxlength="30" id="basicinfo-input-email"
@@ -149,7 +150,7 @@
                         <div class="form-group">
                             <label for="basicinfo-input-phonenumber"
                                    class="col-sm-3 control-label required">手机号</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        regex="number"
                                        maxlength="11" id="basicinfo-input-phonenumber"
@@ -160,7 +161,7 @@
                         <div class="form-group">
                             <label for="basicinfo-input-graduateschool"
                                    class="col-sm-3 control-label required">毕业学校</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        maxlength="50" id="basicinfo-input-graduateschool"
                                        placeholder="请输入毕业学校">
@@ -170,7 +171,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-btn">
+            <div class="form-btn col-md-offset-7">
                 <!--当点击保存按钮的时候，需要将表单中所有绑定need-check的项都进行重新验证，
                     此时需要在按钮上绑定class:save-check
                     并且添加属性check-area=""，属性值为要验证的区域id-->

@@ -11,39 +11,39 @@ $(function () {
  * @Date 2018-10-25
  */
 function init() {
-    if (sessionStorage.getItem("user-info")){
-
-    }
-    $.ajax({
-        url: AJAX_URL.exanineeSelect,
-        type: requestJson ? 'get' : 'post',
-        data: {"examineekey": "1"},
-        dataType: "json",
-        // contentType: "application/json;charset=utf-8",
-        success: function (result) {
-            console.log(result)
-            if (result.ok) {
-                //给表单赋值
-                $("#logininfo-input-userkey").val(result.data[0].userkey)
-                $("#logininfo-input-account").val(result.data[0].useraccount);
-                $("#logininfo-input-password").val(result.data[0].userpassword)
-                $("#basicinfo-input-examineekey").val(result.data[0].examineekey)
-                $("#basicinfo-input-quasiexaminationnumber").val(result.data[0].quasiexaminationnumber)
-                $("#basicinfo-input-realname").val(result.data[0].realname)
-                $("input[name='basicinfo-radio-sex'][value=" + result.data[0].sex + "]").attr("checked", true)
-                $("#basicinfo-input-age").val(result.data[0].age)
-                $("#basicinfo-input-idcardnumber").val(result.data[0].idcardnumber)
-                $("#basicinfo-input-registeredresidence").val(result.data[0].registeredresidence)
-                $("#basicinfo-input-politicaloutlook").val(result.data[0].politicaloutlook)
-                $("#basicinfo-input-nativeplace").val(result.data[0].nativeplace)
-                $("#basicinfo-input-email").val(result.data[0].email)
-                $("#basicinfo-input-phonenumber").val(result.data[0].phonenumber)
-                $("#basicinfo-input-graduateschool").val(result.data[0].graduateschool)
-            } else {
-                poptip.alert(data.message);
+    if (sessionStorage.getItem("userInfo")) {
+        $.ajax({
+            url: AJAX_URL.exanineeSelect,
+            type: requestJson ? 'get' : 'post',
+            data: {"examineekey": JSON.parse(sessionStorage.getItem("userInfo")).examineekey},
+            dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                console.log(result)
+                if (result.ok) {
+                    //给表单赋值
+                    $("#logininfo-input-userkey").val(result.data[0].userkey)
+                    $("#logininfo-input-account").val(result.data[0].useraccount);
+                    $("#logininfo-input-password").val(result.data[0].userpassword)
+                    $("#basicinfo-input-examineekey").val(result.data[0].examineekey)
+                    $("#basicinfo-input-quasiexaminationnumber").val(result.data[0].quasiexaminationnumber)
+                    $("#basicinfo-input-realname").val(result.data[0].realname)
+                    $("input[name='basicinfo-radio-sex'][value=" + result.data[0].sex + "]").attr("checked", true)
+                    $("#basicinfo-input-age").val(result.data[0].age)
+                    $("#basicinfo-input-idcardnumber").val(result.data[0].idcardnumber)
+                    $("#basicinfo-input-registeredresidence").val(result.data[0].registeredresidence)
+                    $("#basicinfo-input-politicaloutlook").val(result.data[0].politicaloutlook)
+                    $("#basicinfo-input-nativeplace").val(result.data[0].nativeplace)
+                    $("#basicinfo-input-email").val(result.data[0].email)
+                    $("#basicinfo-input-phonenumber").val(result.data[0].phonenumber)
+                    $("#basicinfo-input-graduateschool").val(result.data[0].graduateschool)
+                } else {
+                    poptip.alert(data.message);
+                }
             }
-        }
-    })
+        })
+    }
+
 
 }
 
@@ -75,7 +75,6 @@ function saveInfo() {
             "graduateschool": $("#basicinfo-input-graduateschool").val(),
         }
     }
-    // console.log(examineeObj)
     if (requestJson) {
         $("#my-modal").modal("hide");
         poptip.alert(POP_TIP.examineeSuccess);
@@ -88,9 +87,7 @@ function saveInfo() {
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 if (data.ok) {
-                    $("#my-modal").modal("hide");
                     poptip.alert(POP_TIP.examineeSuccess);
-                    $('#my-table').bootstrapTable("refresh");
                 } else {
                     poptip.alert(data.message);
                 }
