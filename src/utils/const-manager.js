@@ -115,8 +115,10 @@ const AJAX_URL = {
      *@date 2018/10/22 14:30:40
      *@author zhangziteng
      */
-    applyVolunteer: requestJson ? '../../jsonDatas/applyVolunteer.json' : requestUrl + 'api/generate/examineevolunteerinformation/getExamineeVolunteerInformation',
+    applyVolunteer: requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/getExamineeVolunteerInformation',
     addVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/ExamineeDeclareVolunteer',
+    //修改志愿
+    updateVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation',
     //学校验重
     addCheckVolunteer:requestJson ? '' : requestUrl + 'api/generate/examineevolunteerinformation/checkExamineeSchool',
     // 获取学校和专业下拉菜单

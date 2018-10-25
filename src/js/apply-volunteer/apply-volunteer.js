@@ -303,20 +303,41 @@ $("#add-button-submit").click(function () {
         "schoolkey":$("#add-input-school").val(),
         "majorkey":$("#add-input-discipline").val()
     };
-    $.ajax({
-        url: AJAX_URL.addVolunteer,
-        type: requestJson ? 'get' : 'post',
-        data: Obj,
-        dataType: "json",
-        // contentType: "application/json;charset=utf-8",
-        success: function (data) {
-            if (data.ok) {
-                $("#add-volunteer-modal").modal("hide");
-                poptip.alert(POP_TIP.addSuccess);
-                $('#volunteer-table-all').bootstrapTable("refresh");
-            } else {
-                poptip.alert(data.message);
+    if ($("#plan-modal-title").text() == "申报志愿") {
+        $.ajax({
+            url: AJAX_URL.addVolunteer,
+            type: requestJson ? 'get' : 'post',
+            data: Obj,
+            dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data.ok) {
+                    $("#add-volunteer-modal").modal("hide");
+                    poptip.alert(POP_TIP.addSuccess);
+                    $('#volunteer-table-all').bootstrapTable("refresh");
+                } else {
+                    poptip.alert(data.message);
+                }
             }
-        }
-    })
+        })
+    } else if ($("#plan-modal-title").text() == "修改志愿")  {
+        $.ajax({
+            url: AJAX_URL.updateVolunteer,
+            type: requestJson ? 'get' : 'put',
+            data: Obj,
+            dataType: "json",
+            // contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data.ok) {
+                    $("#add-volunteer-modal").modal("hide");
+                    poptip.alert(POP_TIP.updateSuccess);
+                    $('#volunteer-table-all').bootstrapTable("refresh");
+                } else {
+                    poptip.alert(data.message);
+                }
+            }
+        })
+    } else {
+        return;
+    }
 });
