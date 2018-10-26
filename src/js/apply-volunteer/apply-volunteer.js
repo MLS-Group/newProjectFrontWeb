@@ -29,8 +29,8 @@ function tableInit(tableUrl) {
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         pagination: false,                   //是否显示分页（*）
         // paginationHAlign:'center',       //分页水平位置
-        paginationDetailHAlign:"right",      //分页详细信息位置
-        sortName:'declaretime',                //排序的数据字段名
+        paginationDetailHAlign: "right",      //分页详细信息位置
+        sortName: 'declaretime',                //排序的数据字段名
         sortable: true,                     //是否启用排序
         sortOrder: "desc",                   //排序方式
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
@@ -49,14 +49,14 @@ function tableInit(tableUrl) {
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
         //得到查询的参数
-        queryParams : function () {
+        queryParams: function () {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var data1 = JSON.parse(sessionStorage.getItem('userInfo'));
             var temp = {
                 // rows: params.limit,                         //页面大小
-                examinationnumber:data1.quasiExaminationNumber,
-                schoolname:$("#school-input-search").val(),
-                majorname:$("#discipline-input-search").val()
+                examinationnumber: data1.quasiExaminationNumber,
+                schoolname: $("#school-input-search").val(),
+                majorname: $("#discipline-input-search").val()
                 // page: (params.offset / params.limit) + 1,   //页码
                 // pageSize:10,
                 // sort: params.sort,      //排序列名
@@ -71,13 +71,13 @@ function tableInit(tableUrl) {
             field: 'examinationnumber',
             title: '准考证号',
             align: 'center',
-            width:200
+            width: 200
         }, {
             field: 'volunteernumber',
             title: '志愿编号',
             align: 'center',
-            width:200,
-            formatter:function(value,row) {
+            width: 200,
+            formatter: function (value, row) {
                 console.log(value);
                 // console.log(row);
                 let a = '<input style="width: 40px; text-align: center;" maxlength="1" id="volunteernumber-input-update" class="from-controller volunteer-number" value="' + value + '"/>';
@@ -87,16 +87,16 @@ function tableInit(tableUrl) {
             field: 'SchoolInformationEO.schoolname',
             title: '学校名称',
             align: 'center',
-            width:300
-        },{
+            width: 300
+        }, {
             field: 'MajorInformationEO.majorname',
             title: '专业名称',
-            width:200
-        },{
+            width: 200
+        }, {
             field: 'declaretime',
             title: '申报时间',
             align: 'center',
-            width:200
+            width: 200
         }
             // ,{
             //     field:'ID',
@@ -125,7 +125,12 @@ function tableInit(tableUrl) {
         //客户端分页，需要指定到rows
         responseHandler: function (result) {
             console.log(result);
-                return result;
+            for (var i = 0; i < result.data.length; i++) {
+                result.data[i].declaretime = getMyDate(result.data[i].declaretime);//时间戳转换为时间
+                // new Date(result.data[i].declaretime).Format("yyyy-MM-dd")
+            }
+            return result;
+
         }
     });
 }
@@ -175,7 +180,7 @@ function AddVolunteerModal(item) {
             // console.log(data);
             let checkboxTable;
             if (item !== 'update') {
-                $.each(data.data,function (i,tmp) {
+                $.each(data.data, function (i, tmp) {
                     $("#add-input-school").append("<option value='' style=\"display: none\">请选择学校</option>");
                     $("#add-input-discipline").append("<option value='' style=\"display: none\">请选择专业</option>");
                     $("#add-input-school").append("<option value='" + tmp.schoolkey + "'>" + tmp.SchoolInformationEO.schoolname + "</option>");
@@ -183,7 +188,7 @@ function AddVolunteerModal(item) {
             } else {
                 checkboxTable = $("#volunteer-table-all").bootstrapTable('getSelections');
             }
-            $.each(data.data,function (i,tmp) {
+            $.each(data.data, function (i, tmp) {
                 // console.log(tmp);
                 console.log(checkboxTable);
                 if (checkboxTable[0].SchoolInformationEO.schoolname == tmp.SchoolInformationEO.schoolname) {
@@ -213,8 +218,8 @@ $("#add-input-school").change(function () {
         dataType: "json",
         // contentType: "application/json;charset=utf-8",
         data: {
-            "schoolKey":$("#add-input-school").val(),
-            "examinationNumber":data1.quasiExaminationNumber
+            "schoolKey": $("#add-input-school").val(),
+            "examinationNumber": data1.quasiExaminationNumber
         },
         success: function (data) {
             // var SCH_ARR;
@@ -228,12 +233,12 @@ $("#add-input-school").change(function () {
         type: 'post',
         dataType: "json",
         // contentType: "application/json;charset=utf-8",
-        data:{"schoolKey":$("#add-input-school").val()},
+        data: {"schoolKey": $("#add-input-school").val()},
         success: function (data) {
             // var SCH_ARR;
             // SCH_ARR = data.data.list;
             console.log(data);
-            $.each(data.data,function (i,tmp) {
+            $.each(data.data, function (i, tmp) {
                 console.log(tmp);
                 if (tmp !== '') {
                     $("#add-input-discipline").append("<option value='" + tmp.majorkey + "'>" + tmp.majorname + "</option>");
@@ -244,6 +249,7 @@ $("#add-input-school").change(function () {
         }
     })
 });
+
 /**
  *@desc 修改按钮
  *@date 2018/10/23 16:48:47
@@ -263,6 +269,7 @@ function AlterVolunteerModal() {
         $("#add-volunteer-modal").modal("show");
     }
 }
+
 /**
  *@desc 批量删除
  *@date 2018/10/23 16:49:17
@@ -325,10 +332,10 @@ $("#add-button-submit").click(function () {
     var data1 = JSON.parse(sessionStorage.getItem('userInfo'));
     console.log(data1.quasiExaminationNumber);
     var Obj = {
-        "examinationnumber":data1.quasiExaminationNumber,
-        "volunteernumber":$("#add-input-years").val(),
-        "schoolkey":$("#add-input-school").val(),
-        "majorkey":$("#add-input-discipline").val()
+        "examinationnumber": data1.quasiExaminationNumber,
+        "volunteernumber": $("#add-input-years").val(),
+        "schoolkey": $("#add-input-school").val(),
+        "majorkey": $("#add-input-discipline").val()
     };
     if ($("#plan-modal-title").text() == "申报志愿") {
         $.ajax({
@@ -347,15 +354,15 @@ $("#add-button-submit").click(function () {
                 }
             }
         })
-    } else if ($("#plan-modal-title").text() == "修改志愿")  {
+    } else if ($("#plan-modal-title").text() == "修改志愿") {
         let checkboxTable = $("#volunteer-table-all").bootstrapTable('getSelections');
         $.ajax({
             url: AJAX_URL.updateVolunteer,
             type: requestJson ? 'get' : 'post',
             data: JSON.stringify({
-                "schoolkey":$("#add-input-school").val(),
-                "majorkey":$("#add-input-discipline").val(),
-                "volunteerkey":checkboxTable[0].volunteerkey
+                "schoolkey": $("#add-input-school").val(),
+                "majorkey": $("#add-input-discipline").val(),
+                "volunteerkey": checkboxTable[0].volunteerkey
             }),
             dataType: "json",
             contentType: "application/json;charset=utf-8",
@@ -385,15 +392,15 @@ function UpdateVolunteerNumber() {
     for (var i = 0; i < checkboxTable.length; i++) {
         var idnumber = $(".volunteer-number").eq(i).val();
         volunteers.push({
-        "volunteerkey": checkboxTable[i].volunteerkey,
-        "volunteernumber":idnumber
+            "volunteerkey": checkboxTable[i].volunteerkey,
+            "volunteernumber": idnumber
         });
     }
     let dataObj = {
         "volunteers": volunteers
     };
     $.ajax({
-        url: AJAX_URL. updateVolunteerNumber,
+        url: AJAX_URL.updateVolunteerNumber,
         type: requestJson ? 'get' : 'post',
         data: JSON.stringify(dataObj),
         dataType: "json",
@@ -408,3 +415,4 @@ function UpdateVolunteerNumber() {
         }
     })
 }
+

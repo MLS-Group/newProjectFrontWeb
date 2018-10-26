@@ -4,6 +4,24 @@
  *@author zhangziteng
  */
 
+
+$(function () {
+    if (JSON.parse(sessionStorage.getItem("userInfo")) != null) {
+        switch (JSON.parse(sessionStorage.getItem("userInfo")).userrole) {
+            case "0":
+                $("#nav-role").text("考生");
+                break;
+            case "1":
+                $("#nav-role").text("管理员");
+                break;
+            case "2":
+                $("#nav-role").text("招生者");
+                break;
+        }
+    }
+})
+
+
 /**
  *@desc 修改密码
  *@date 2018/10/22 10:55:07
@@ -24,7 +42,7 @@ $("#update-button-ok").click(function () {
         }),
         dataType: "json",
         contentType: "application/json;charset=utf-8",
-        success:function (data) {
+        success: function (data) {
             if (data.ok) {
                 // alert(data.message);
                 // window.location.href = '../default/default.html';
@@ -55,7 +73,7 @@ $("#update-input-oldpassword").blur(function () {
         }),
         dataType: "json",
         contentType: "application/json;charset=utf-8",
-        success:function (data) {
+        success: function (data) {
             console.log(data.message);
             if (data.ok) {
                 // alert(data.message);
@@ -72,8 +90,8 @@ $("#update-input-oldpassword").blur(function () {
  * 刘笑天 20181024
  */
 $("#logout-li-userlogout").click(function () {
-/*    //得到session
-    sessionStorage.getItem("userInfo");*/
+    /*    //得到session
+        sessionStorage.getItem("userInfo");*/
     console.log(sessionStorage.getItem("userInfo"));
     //删除item
     sessionStorage.removeItem("userInfo");

@@ -15,7 +15,7 @@ function init() {
         $.ajax({
             url: AJAX_URL.exanineeSelect,
             type: requestJson ? 'get' : 'post',
-            data: {"examineekey": JSON.parse(sessionStorage.getItem("userInfo")).examineekey},
+            data: {"examineekey": JSON.parse(sessionStorage.getItem("userInfo")).examineeKey},
             dataType: "json",
             // contentType: "application/json;charset=utf-8",
             success: function (result) {
