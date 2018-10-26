@@ -41,6 +41,7 @@ const POP_TIP = {
     examineeSuccess:"录取成功", //by 刘志杰
     examineeFail:"录取失败", //by 刘志杰
     selectFail:"查询失败", //by 刘志杰
+    roleFail:"你没有使用权限",
 };
 
 /**

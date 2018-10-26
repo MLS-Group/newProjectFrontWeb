@@ -109,8 +109,8 @@ $(function () {
 
     function _createCodeCalc(codeLength) {
         let code1,
-code2,
-codeResult;
+            code2,
+            codeResult;
         let selectChar = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         let charIndex;
         for (let i = 0; i < codeLength; i++) {
@@ -156,17 +156,23 @@ $("#login-button-examineelogin").click(function () {
         },
         dataType: "json",
         // contentType: "application/json;charset=utf-8",
-        success:function (result) {
+        success: function (result) {
             if (result.ok) {
                 // alert(data.message);
-                sessionStorage.setItem("userInfo",JSON.stringify(result.data));//用户信息存入session
+                if (result.data.userrole != '0') {
+                    alert(POP_TIP.roleFail);
+                    window.location.href = '../login/login.html';
+                    return 0;
+                }
+                sessionStorage.setItem("userInfo", JSON.stringify(result.data));//用户信息存入session
                 window.location.href = '../default/default.html';
             } else {
                 alert(result.message);
             }
         }
     });
-});
+})
+;
 /**
  * 注册模态框 验证准考证号
  * 若验证成功 下面的文本框才可以输入
@@ -185,22 +191,24 @@ $("#regist-input-examinationnumber").blur(function () {
             success: function (data) {
                 if (data.ok) {
                     alert(data.message);
-                    $("#regist-input-username").attr("disabled",false);
-                    $("#regist-input-password").attr("disabled",false);
-                    $("#regist-input-email").attr("disabled",false);
-                    $("#regist-input-phonenumber").attr("disabled",false);
-                    $("#regist-input-verfication").attr("disabled",false);
+                    $("#regist-input-username").attr("disabled", false);
+                    $("#regist-input-password").attr("disabled", false);
+                    $("#regist-input-email").attr("disabled", false);
+                    $("#regist-input-phonenumber").attr("disabled", false);
+                    $("#regist-input-verfication").attr("disabled", false);
                 } else {
                     alert(data.message);
                 }
             }
         });
-    }else {};
+    } else {
+    }
+    ;
 });
 /**
  * 注册模态框 注册按钮
  */
-$("#regist-button-userreg").click(function() {
+$("#regist-button-userreg").click(function () {
     var quasiExaminationNumber = $("#regist-input-examinationnumber").val();
     var userAccount = $("#regist-input-username").val();
     var userPassword = $("#regist-input-password").val();
