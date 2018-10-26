@@ -117,7 +117,10 @@ function tableInit(tableUrl) {
         },
         //客户端分页，需要指定到rows
         responseHandler: function (result) {
-            console.log(result);
+            for (var i = 0; i < result.data.length; i++) {
+                result.data[i].declaretime = getMyDate(result.data[i].declaretime);//时间戳转换为时间
+                // new Date(result.data[i].declaretime).Format("yyyy-MM-dd")
+            }
                 return result;
         }
     });
@@ -327,3 +330,28 @@ $("#add-button-submit").click(function () {
         }
     })
 });
+
+/**
+ * 时间戳转时间
+ * 刘笑天 20181025 添加
+ * @param str
+ * @returns {string}
+ */
+function getMyDate(str) {
+    var oDate = new Date(str),
+        oYear = oDate.getFullYear(),
+        oMonth = oDate.getMonth() + 1,
+        oDay = oDate.getDate(),
+        oHour = oDate.getHours(),
+        oMin = oDate.getMinutes(),
+        oSen = oDate.getSeconds(),
+        oTime = oYear + '-' + getzf(oMonth) + '-' + getzf(oDay) + ' ' + getzf(oHour) + ':' + getzf(oMin) + ':' + getzf(oSen);//最后拼接时间
+    return oTime;
+}
+//时间戳转时间——补0操作
+function getzf(num){
+    if (parseInt(num) < 10) {
+        num = '0' + num;
+    }
+    return num;
+}
