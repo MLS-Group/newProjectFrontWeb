@@ -59,6 +59,29 @@ function getzf(num) {
     return num;
 }
 
+/**
+ * @Desc 输入的字符限制（中文占2个字符，其他的1个）
+ * @Author 刘志杰
+ * @Date 2018-10-29
+ * @param dom   该dom元素对象
+ * @param maxLength 限制的长度
+ */
+function checkLength(dom, maxLength) {
+    console.log("length=" + dom.value.length)
+    let l = 0;
+    for (let i = 0; i < dom.value.length; i++) {
+        if (/[\u4e00-\u9fa5]/.test(dom.value[i])) {
+            l += 2;
+        } else {
+            l++;
+        }
+        if (l >= maxLength) {
+            dom.value = dom.value.substr(0, i + 1);
+            break;
+        }
+    }
+}
+
 
 /**
  * @Desc XSS攻击

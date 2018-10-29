@@ -42,7 +42,7 @@
                                    class="col-sm-3 control-label ">密码： </label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control"
-                                       maxlength="10" id="logininfo-input-password"
+                                       onkeyup="checkLength(this,10)" id="logininfo-input-password"
                                        placeholder="请输入密码">
                                 <span class="alert-warn"></span>
                             </div>
@@ -67,7 +67,7 @@
                                    class="col-sm-3 control-label required">真实姓名 </label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
-                                       maxlength="10" id="basicinfo-input-realname"
+                                       onkeyup="checkLength(this,10)" id="basicinfo-input-realname"
                                        placeholder="请输入真实姓名">
                                 <span class="alert-warn"></span>
                             </div>
@@ -93,7 +93,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        regex="number"
-                                       maxlength="2" id="basicinfo-input-age"
+                                       onkeyup="checkLength(this,2)" id="basicinfo-input-age"
                                        placeholder="请输入年龄">
                                 <span class="alert-warn"></span>
                             </div>
@@ -103,7 +103,7 @@
                                    class="col-sm-3 control-label required">身份证号</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
-                                       regex="idNumber3" maxlength="18" id="basicinfo-input-idcardnumber"
+                                       regex="idNumber3"  onkeyup="checkLength(this,18)" id="basicinfo-input-idcardnumber"
                                        placeholder="请输入身份证号">
                                 <span class="alert-warn"></span>
                             </div>
@@ -113,7 +113,7 @@
                                    class="col-sm-3 control-label required">户口所在地</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
-                                       maxlength="50" id="basicinfo-input-registeredresidence"
+                                       onkeyup="checkLength(this,50)" id="basicinfo-input-registeredresidence"
                                        placeholder="请输入户口所在地">
                                 <span class="alert-warn"></span>
                             </div>
@@ -122,7 +122,7 @@
                             <label for="basicinfo-input-politicaloutlook" class="col-sm-3 control-label required">政治面貌</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
-                                       maxlength="15" id="basicinfo-input-politicaloutlook"
+                                       onkeyup="checkLength(this,15)" id="basicinfo-input-politicaloutlook"
                                        placeholder="请输入政治面貌">
                                 <span class="alert-warn"></span>
                             </div>
@@ -132,7 +132,7 @@
                                    class="col-sm-3 control-label required">籍贯</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
-                                       maxlength="20" id="basicinfo-input-nativeplace"
+                                       onkeyup="checkLength(this,20)" id="basicinfo-input-nativeplace"
                                        placeholder="请输入籍贯">
                                 <span class="alert-warn"></span>
                             </div>
@@ -142,7 +142,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        regex="email"
-                                       maxlength="30" id="basicinfo-input-email"
+                                       onkeyup="checkLength(this,30)" id="basicinfo-input-email"
                                        placeholder="请输入邮箱地址">
                                 <span class="alert-warn"></span>
                             </div>
@@ -153,7 +153,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
                                        regex="number"
-                                       maxlength="11" id="basicinfo-input-phonenumber"
+                                       onkeyup="checkLength(this,11)" id="basicinfo-input-phonenumber"
                                        placeholder="请输入手机号">
                                 <span class="alert-warn"></span>
                             </div>
@@ -163,7 +163,7 @@
                                    class="col-sm-3 control-label required">毕业学校</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control need-check not-null"
-                                       maxlength="50" id="basicinfo-input-graduateschool"
+                                       onkeyup="checkLength(this,50)" id="basicinfo-input-graduateschool"
                                        placeholder="请输入毕业学校">
                                 <span class="alert-warn"></span>
                             </div>
