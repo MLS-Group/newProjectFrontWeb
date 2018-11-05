@@ -7,7 +7,7 @@
 var SELECT_ENROLMENTINFO_URL = requestJson ? '' : requestUrl + 'api/generate/adminssionsplaninformation/queryAdminssionInfoByPage';//招生信息分页+模糊查询接口
 
 $(function () {
-    tableInit(SELECT_ENROLMENTINFO_URL,'')
+    tableInit(SELECT_ENROLMENTINFO_URL, '')
 })
 
 
@@ -17,7 +17,7 @@ $(function () {
  * @Date 2018-10-22
  * @param tableUrl 表格获取数据的url地址
  */
-function tableInit(tableUrl,cond) {
+function tableInit(tableUrl, cond) {
     $('#show-table-enrolmentinfo').bootstrapTable({
         url: tableUrl,
         method: requestJson ? 'get' : 'post',                      //请求方式（*）
@@ -55,8 +55,8 @@ function tableInit(tableUrl,cond) {
                     page: (params.offset / params.limit) + 1,   //页码
                     sort: params.sort,      //排序列名
                     sortOrder: params.order, //排位命令（desc，asc）
-                    pageSize:10,
-                    schoolname:$("#select-input-school").val(),
+                    pageSize: 10,
+                    schoolname: $("#select-input-school").val(),
                     majorname: $("#select-input-major").val(),
                     provincename: $("#select-input-province").val()
                 };
@@ -65,7 +65,7 @@ function tableInit(tableUrl,cond) {
                 temp = {
                     rows: params.limit,                         //页面大小
                     page: (params.offset / params.limit) + 1,   //页码
-                    pageSize:10,
+                    pageSize: 10,
                     sort: params.sort,      //排序列名
                     sortOrder: params.order, //排位命令（desc，asc）
                 };
@@ -100,7 +100,16 @@ function tableInit(tableUrl,cond) {
         }, {
             align: 'center',
             field: 'publishtime',
-            title: '发布时间'
+            title: '发布时间',
+            formatter: function (value) {
+                if (value) {
+                    return getMyDate(value);
+                } else {
+                    return '-';
+                }
+
+            }
+
         }],
         onLoadSuccess: function (e) {
             // console.log(e)
@@ -134,7 +143,7 @@ function tableInit(tableUrl,cond) {
 $("#search-button").click(function () {
     console.log(1111)
     $('#show-table-enrolmentinfo').bootstrapTable('destroy');
-    tableInit(SELECT_ENROLMENTINFO_URL,'sign');
+    tableInit(SELECT_ENROLMENTINFO_URL, 'sign');
 
 // var selectObj = {  //查询 选择的信息
 //     "schoolname": $("#select-input-school").val(),
@@ -164,6 +173,7 @@ $("#search-button").click(function () {
 //     }
 // })
 })
+
 
 
 

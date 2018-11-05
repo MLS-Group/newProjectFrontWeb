@@ -34,6 +34,33 @@ Date.prototype.Format = function (fmt) {
 }
 
 /**
+ * 时间戳转时间
+ * 刘笑天 20181025 添加
+ * @param str
+ * @returns {string}
+ */
+function getMyDate(str) {
+    var oDate = new Date(str),
+        oYear = oDate.getFullYear(),
+        oMonth = oDate.getMonth() + 1,
+        oDay = oDate.getDate(),
+        oHour = oDate.getHours(),
+        oMin = oDate.getMinutes(),
+        oSen = oDate.getSeconds(),
+        oTime = oYear + '-' + getzf(oMonth) + '-' + getzf(oDay) + ' ' + getzf(oHour) + ':' + getzf(oMin) + ':' + getzf(oSen);//最后拼接时间
+    return oTime;
+}
+
+//时间戳转时间——补0操作
+function getzf(num) {
+    if (parseInt(num) < 10) {
+        num = '0' + num;
+    }
+    return num;
+}
+
+
+/**
  * @Desc XSS攻击
  */
 let HtmlEncode = function (str) {
@@ -407,20 +434,23 @@ $(window).resize(function () {
 
 let formsth;
 let poptip;
-(function() {
+(function () {
     /**
      * @Desc 表单工具类
      * @Date 2018-09-18 15:21:43
      * @Author qitian
      */
-    let Formsth = function () {};
+    let Formsth = function () {
+    };
     /**
      * @Desc 最大输入字符
      * @Param num 最大输入字符数
      */
     Formsth.prototype.limitLength = function (num, t_this) {
         let value = t_this.value;
-        if (value.length > num) { t_this.value = value.slice(0, num) }
+        if (value.length > num) {
+            t_this.value = value.slice(0, num)
+        }
     }
     /**
      * @Desc 限制文本框只能输入数字
@@ -448,44 +478,45 @@ let poptip;
         let value = t_this.value;
         let warn;
         switch (t_this.type) {
-            case 'text': default:
-            warn = $(t_this).next('.alert-warn');
-            if (value) {
-                if (regex) {
-                    regex = regex.replace(/\s+/g, ' ').split(' ');
-                    if (regex.length > 0) {
-                        for (let re of regex) {
-                            if (re && !REGEX[re].test(value)) {
-                                warn.html(INPUT_ALERT[re]);
-                                warn.show();
-                                return false;
-                            } else {
-                                warn.html('');
-                                warn.hide();
+            case 'text':
+            default:
+                warn = $(t_this).next('.alert-warn');
+                if (value) {
+                    if (regex) {
+                        regex = regex.replace(/\s+/g, ' ').split(' ');
+                        if (regex.length > 0) {
+                            for (let re of regex) {
+                                if (re && !REGEX[re].test(value)) {
+                                    warn.html(INPUT_ALERT[re]);
+                                    warn.show();
+                                    return false;
+                                } else {
+                                    warn.html('');
+                                    warn.hide();
+                                }
                             }
                         }
+                    } else {
+                        warn.html('');
+                        warn.hide();
+                        return true;
                     }
+                } else if (notNull) {
+                    warn.html(INPUT_ALERT.notNull);
+                    warn.show();
+                    return false;
                 } else {
                     warn.html('');
                     warn.hide();
                     return true;
                 }
-            } else if (notNull) {
-                warn.html(INPUT_ALERT.notNull);
-                warn.show();
-                return false;
-            } else {
-                warn.html('');
-                warn.hide();
-                return true;
-            }
-            break;
+                break;
             case 'radio':
                 warn = $(t_this).parent().parent().next('.alert-warn');
                 if (notNull) {
                     let radios = $(t_this).parent().parent().find('input[name="' + t_this.name + '"]');
                     let unpassCount = 0;
-                    radios.each(function (index,item) {
+                    radios.each(function (index, item) {
                         if (!item.checked) {
                             unpassCount++;
                         }
@@ -507,7 +538,7 @@ let poptip;
                 break;
         }
 
-        $(t_this).on('input',function() {
+        $(t_this).on('input', function () {
             warn.html('');
             warn.hide();
         })
@@ -521,7 +552,7 @@ let poptip;
     Formsth.prototype.checkItems = function (formId) {
         let checkItems = $('#' + formId).find('.need-check');
         let passCount = checkItems.length;
-        checkItems.each(function(index,item) {
+        checkItems.each(function (index, item) {
             if (!formsth.checkItem(item)) {
                 passCount--;
             }
@@ -538,10 +569,10 @@ let poptip;
      * @Date 2018-09-13 13:41:25
      * @Author qitian
      */
-    let Poptip = function() {
+    let Poptip = function () {
         this.state = 0;//0：提示，1：确认
     };
-    Poptip.prototype.getEl = function() {
+    Poptip.prototype.getEl = function () {
         let $el;
         let id = this.state === 0 ? '#alert-modal' : '#confirm-modal';
         if ($(id).length === 0) {
@@ -551,7 +582,7 @@ let poptip;
         }
         return $el;
     }
-    Poptip.prototype.close = function() {
+    Poptip.prototype.close = function () {
         let $el = this.getEl();
         $el.modal('hide');
     }
@@ -564,89 +595,95 @@ let poptip;
         $el.find('.form-horizontal').html('<h4>' + content + '</h4>');
         $el.modal('show');
     }
-    Poptip.prototype.confirm = function(obj) {
+    Poptip.prototype.confirm = function (obj) {
         this.state = 1;
         if (!this.getEl().hasClass('fade')) {
             poptip.close();
         }
         let $el = this.getEl(1);
         $el.find('.form-horizontal').html('<h4>' + obj.content + '</h4>');
-        $el.find('.alert-yes').bind('click',obj.yes);
-        $el.find('.alert-cancel').bind('click',obj.cancel);
+        $el.find('.alert-yes').bind('click', obj.yes);
+        $el.find('.alert-cancel').bind('click', obj.cancel);
         $el.modal('show');
     }
     formsth = new Formsth();
     poptip = new Poptip();
-    $('.need-check').each(function(index,item) {
+    $('.need-check').each(function (index, item) {
         if (item.type === 'text') {
-            $(item).bind('blur',function() { formsth.checkItem(item) })
+            $(item).bind('blur', function () {
+                formsth.checkItem(item)
+            })
         } else {
-            $(item).bind('change',function() { formsth.checkItem(item) })
+            $(item).bind('change', function () {
+                formsth.checkItem(item)
+            })
         }
     });
-    $('.only-num').each(function(index,item) {
-        $(item).bind('input',function() { formsth.onlyNum(item) })
+    $('.only-num').each(function (index, item) {
+        $(item).bind('input', function () {
+            formsth.onlyNum(item)
+        })
     });
-    $('.save-check').each(function(index,item) {
+    $('.save-check').each(function (index, item) {
         let $onclick = item.onclick;
         $(item).removeAttr('onclick');
         let formId = $(item).attr('check-area');
-        $(item).bind('click',function() {
+        $(item).bind('click', function () {
             if (formsth.checkItems(formId) && $onclick) {
                 $onclick();
             }
         })
     });
     /*可拖动模态框*/
-   /* $(function() {
-        let _move=false;//移动标记
-        let _x,_y;//鼠标离控件左上角的相对位置
-        let _dragZone = $(".drag-modal .modal-header");
-        let _dragBody = _dragZone.parent().parent().parent();
-        _dragZone.mousedown(function(e) {
-            $(this).attr("onselectstart", "return false"); //禁双击选中
-            $("body").css({"-webkit-user-select":"none", "-moz-user-select":"none", "-ms-user-select":"none", "-khtml-user-select":"none", "user-select":"none"}); //禁止选中文字
-            _move=true;
-            _x=e.pageX-parseInt(_dragBody.css("left"));
-            _y=e.pageY-parseInt(_dragBody.css("top"));
-            _dragBody.fadeTo(150, 0.5);
-        });
-        $(document).mousemove(function(e) {
-            if (_move) {
-                let x=e.pageX-_x;//移动时根据鼠标位置计算控件左上角的绝对位置
-                let y=e.pageY-_y;
-                if (e.pageX <= 0 || e.pageY <= 0) {
-                    _move=false;
-                }else {
-                    let pageW = $(window).width();
-                    let pageH = $(window).height();
-                    let dialogW = _dragBody.width();
-                    let dialogH = _dragBody.height() / 2;
-                    let maxX = pageW - dialogW;       //X轴可拖动最大值
-                    let maxY = pageH - dialogH;       //Y轴可拖动最大值
-                    let minX = dialogW - pageW;
-                    let minY = dialogH - pageH;
-                    x = Math.min(Math.max(minX,x),maxX);     //X轴可拖动范围
-                    y = Math.min(Math.max(minY,y),maxY);     //Y轴可拖动范围
-                    _dragBody.css({left:x, top:y});//控件新位置
-                }
-            }
-        }).mouseup(function() {
-            _move=false;
-            _dragBody.fadeTo("fast", 1);
-            $("body").removeAttr("style"); //移除不能选文字
-        });
-        $('.drag-modal').on('show.bs.modal', function () {
-            setTimeout(function() {
-                $('.modal-backdrop').each(function(index,item) {
-                    $(item).remove();
-                })
-                $('.modal-backdrop',parent.document).each(function(index,item) {
-                    $(item).remove();
-                })
-            },500)
-        });
-    });*/
+    /* $(function() {
+         let _move=false;//移动标记
+         let _x,_y;//鼠标离控件左上角的相对位置
+         let _dragZone = $(".drag-modal .modal-header");
+         let _dragBody = _dragZone.parent().parent().parent();
+         _dragZone.mousedown(function(e) {
+             $(this).attr("onselectstart", "return false"); //禁双击选中
+             $("body").css({"-webkit-user-select":"none", "-moz-user-select":"none", "-ms-user-select":"none", "-khtml-user-select":"none", "user-select":"none"}); //禁止选中文字
+             _move=true;
+             _x=e.pageX-parseInt(_dragBody.css("left"));
+             _y=e.pageY-parseInt(_dragBody.css("top"));
+             _dragBody.fadeTo(150, 0.5);
+         });
+         $(document).mousemove(function(e) {
+             if (_move) {
+                 let x=e.pageX-_x;//移动时根据鼠标位置计算控件左上角的绝对位置
+                 let y=e.pageY-_y;
+                 if (e.pageX <= 0 || e.pageY <= 0) {
+                     _move=false;
+                 }else {
+                     let pageW = $(window).width();
+                     let pageH = $(window).height();
+                     let dialogW = _dragBody.width();
+                     let dialogH = _dragBody.height() / 2;
+                     let maxX = pageW - dialogW;       //X轴可拖动最大值
+                     let maxY = pageH - dialogH;       //Y轴可拖动最大值
+                     let minX = dialogW - pageW;
+                     let minY = dialogH - pageH;
+                     x = Math.min(Math.max(minX,x),maxX);     //X轴可拖动范围
+                     y = Math.min(Math.max(minY,y),maxY);     //Y轴可拖动范围
+                     _dragBody.css({left:x, top:y});//控件新位置
+                 }
+             }
+         }).mouseup(function() {
+             _move=false;
+             _dragBody.fadeTo("fast", 1);
+             $("body").removeAttr("style"); //移除不能选文字
+         });
+         $('.drag-modal').on('show.bs.modal', function () {
+             setTimeout(function() {
+                 $('.modal-backdrop').each(function(index,item) {
+                     $(item).remove();
+                 })
+                 $('.modal-backdrop',parent.document).each(function(index,item) {
+                     $(item).remove();
+                 })
+             },500)
+         });
+     });*/
 })()
 /**************************************************************工具方法结束*************************************************************/
 /**************************************************************公共方法*************************************************************/
@@ -655,11 +692,11 @@ let poptip;
  * @Date 2018-09-18 10:30:46
  * @Author qitian
  */
-$(function() {
-    $('.content-left .nav-tabs a').on('click',function(e) {
-        setTimeout(function() {
-            initHeight($('body').attr('id'),$(e.currentTarget).attr('href'));
-        },100)
+$(function () {
+    $('.content-left .nav-tabs a').on('click', function (e) {
+        setTimeout(function () {
+            initHeight($('body').attr('id'), $(e.currentTarget).attr('href'));
+        }, 100)
     })
     /*$('.sidebar-nav .nav-tabs li').on('click',function(e) {
         if ($(e.currentTarget).attr('go') && $(e.currentTarget).attr('name')) {
@@ -669,6 +706,7 @@ $(function() {
         }
     })*/
 });
+
 /*function initHeightF (childBodyId, childDoc) {
     let contentHeight =  $('.content-center').css('height').split('px');
     let htmlHeight = childDoc.body.clientHeight;
@@ -680,9 +718,9 @@ $(function() {
         }
     }
 }*/
-function initHeight(bodyId,thisId) {
+function initHeight(bodyId, thisId) {
     if (thisId && thisId !== '#') {
-        let contentHeight =  $(String(String(thisId))).css('height').split('px');
+        let contentHeight = $(String(String(thisId))).css('height').split('px');
         let htmlHeight = $('html').css('height').split('px');
         if (contentHeight && htmlHeight) {
             if (parseFloat(contentHeight[0]) > parseFloat(htmlHeight[0])) {
@@ -701,7 +739,7 @@ function initHeight(bodyId,thisId) {
 function calcPageHeight(doc) {
     let cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
     let sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
-    let height  = Math.max(cHeight, sHeight)
+    let height = Math.max(cHeight, sHeight)
     return height
 }
 
@@ -731,6 +769,7 @@ function pageToDo(path) {
     let browser = navigator.userAgent;
     parent.document.getElementById(ifreameId).src = path;
 }
+
 /**************************************************************公共方法结束*************************************************************/
 
 

@@ -11,6 +11,18 @@ $(function() {
             $(this).next('.dropdown-submenu').css('display','none');
         }
     });*/
+    //通过权限，显示模块 by 刘志杰
+    if (JSON.parse(sessionStorage.getItem("userInfo"))) {
+        switch (JSON.parse(sessionStorage.getItem("userInfo")).userrole) {
+            case "0": //考生
+                $("li[name='ExamineeinfoInsert']").css("display", "block");
+                break;
+            case "1": //管理员
+                break;
+            case "2": //招生者
+                break;
+        }
+    }
     $('.sider-nav').find('li').each(function (index,item) {
         let go = $(item).attr('go');
         let name = $(item).attr('name');

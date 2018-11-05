@@ -30,8 +30,8 @@ function tableInit(tableUrl) {
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         pagination: false,                   //是否显示分页（*）
         // paginationHAlign:'center',       //分页水平位置
-        paginationDetailHAlign:"right",      //分页详细信息位置
-        sortName:'admissiontime',                //排序的数据字段名
+        paginationDetailHAlign: "right",      //分页详细信息位置
+        sortName: 'admissiontime',                //排序的数据字段名
         sortable: true,                     //是否启用排序
         sortOrder: "desc",                   //排序方式
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
@@ -50,38 +50,46 @@ function tableInit(tableUrl) {
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
         //得到查询的参数
-        queryParams : function (params) {
+        queryParams: function (params) {
             //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             var temp = {
-                    rows: params.limit,                         //页面大小
-                    // page: (params.offset / params.limit) + 1, //页码
-                    examinationnumber:$("#admission-input-search").val()
-                    // sort: params.sort,      //排序列名
-                    // sortOrder: params.order //排位命令（desc，asc）
-                };
-                return temp;
+                rows: params.limit,                         //页面大小
+                // page: (params.offset / params.limit) + 1, //页码
+                examinationnumber: $("#admission-input-search").val()
+                // sort: params.sort,      //排序列名
+                // sortOrder: params.order //排位命令（desc，asc）
+            };
+            return temp;
         },
         columns: [{
             field: 'schoolname',
             align: 'center',
             title: '学校名称',
-            width:300
+            width: 300
         }, {
             field: 'volunteers',
             align: 'center',
             title: '专业名称',
-            width:300
-        },{
+            width: 300
+        }, {
             field: 'admissiontime',
             align: 'center',
             title: '录取时间',
-            width:200
+            width: 200,
+            formatter: function (val) {
+                if (val) {
+                   return getMyDate(val);
+                } else {
+                    return '-';
+                }
+
+            }
         }, {
             field: 'briefintroduction',
             title: '  ',
             width: 100,
             align: 'center',
-            formatter: function (value,row) {
+            formatter: function (value, row) {
                 //通过formatter可以自定义列显示的内容
                 //value：当前field的值，即id
                 //row：当前行的数据
@@ -103,7 +111,7 @@ function tableInit(tableUrl) {
         //客户端分页，需要指定到rows
         responseHandler: function (result) {
             console.log(result);
-                return result;
+            return result;
         }
     });
 }
