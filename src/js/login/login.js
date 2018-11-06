@@ -236,3 +236,31 @@ $("#regist-button-userreg").click(function () {
         }
     });
 });
+
+/**
+ * 初始化注册模态框
+ * 刘笑天 20181105
+ */
+function userRegist() {
+    //获取输入框
+    var examinationnumber = $("#regist-input-examinationnumber")
+    var username = $("#regist-input-username")
+    var password = $("#regist-input-password")
+    var email = $("#regist-input-email")
+    var phonenumber = $("#regist-input-phonenumber")
+    var verfication = $("#regist-input-verfication")
+    //初始化输入框
+    examinationnumber.val("")
+    username.val("");
+    password.val("");
+    email.val("");
+    phonenumber.val("");
+    verfication.val("");
+    //设置输入框初始状态
+    username.attr("disabled", "disabled");
+    password.attr("disabled", "disabled");
+    email.attr("disabled", "disabled");
+    phonenumber.attr("disabled", "disabled");
+    verfication.attr("disabled", "disabled");
+
+}
